@@ -14,6 +14,7 @@ app.use(require('./routes/checkout'));
 app.use(require('./routes/order'));
 app.use(require('./routes/products'));
 app.use(require('./routes/user'));
+app.use(require('./routes/cart'));
 
 app.listen(PORT, () => {
     console.log(`Listening on port ${PORT}`);
