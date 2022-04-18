@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 
-const client = require('./db/Client');
+const bodyParser = require('body-parser');
 
 require('dotenv').config({ path: './config.env' });
 
@@ -11,6 +11,9 @@ const cors = require('cors');
 
 app.use(cors());
 app.use(express.json());
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded());
 
 app.use(require('./routes/checkout'));
 app.use(require('./routes/order'));

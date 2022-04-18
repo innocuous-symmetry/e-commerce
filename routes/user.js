@@ -3,6 +3,7 @@ const userRouter = express.Router();
 
 const client = require('../db/Client');
 
+// get a list of all users
 userRouter.route('/users').get(async (req, res) => {
     const newClient = client();
 
@@ -20,15 +21,16 @@ userRouter.route('/users').get(async (req, res) => {
     }
 });
 
+// post a new user to the database
 userRouter.route('/users').post(async (req, res) => {
-    const body = ['Mikayla'];
+    const { name, email } = req.body;
     const newClient = client();
 
     try {
         await newClient.connect()
         .then(console.log("Connection successful."));
 
-        await newClient.query(("INSERT INTO users (name) VALUES ('mikayla')"))
+        await newClient.query(("INSERT INTO users (name, email) VALUES ($1, $2)"), [name, email])
         .then(res.sendStatus(204));
     } catch(e) {
         console.log(e);
