@@ -3,21 +3,40 @@ const userRouter = express.Router();
 
 const client = require('../db/Client');
 
-// get a list of all users
+// get a list of all users, or a single user matching an email passed in as a query param
 userRouter.route('/users').get(async (req, res) => {
     const newClient = client();
 
-    try {
-        await newClient.connect();
-        console.log('Connection successful.');
+    if (req.query) {
+        const { email } = req.query;
 
-        const results = await newClient.query("SELECT * FROM users");
-        res.send(results.rows);
-    } catch(e) {
-        console.log(e);
-    } finally {
-        await newClient.end();
-        console.log("Client disconnected.");
+        if (!email) {
+            try {
+                await newClient.connect();
+                console.log('Connection successful.');
+        
+                const results = await newClient.query("SELECT * FROM users");
+                res.send(results.rows);
+            } catch(e) {
+                console.log(e);
+            } finally {
+                await newClient.end();
+                console.log("Client disconnected.");
+            }
+        } else {
+            try {
+                await newClient.connect()
+                .then(console.log("Connection successful."));
+        
+                const result = await newClient.query(("SELECT * FROM users WHERE email = ($1)"), [email])
+                res.send(result.rows);
+            } catch(e) {
+                console.log(e);
+            } finally {
+                await newClient.end()
+                .then(console.log("Client disconnected."));
+            }
+        }
     }
 });
 
