@@ -10,9 +10,10 @@ const cors = require('cors');
 app.use(cors());
 app.use(express.json());
 
-app.use('/', (req, res) => {
-    res.send('Testing the server');
-})
+app.use(require('./routes/checkout'));
+app.use(require('./routes/order'));
+app.use(require('./routes/products'));
+app.use(require('./routes/user'));
 
 app.listen(PORT, () => {
     console.log(`Listening on port ${PORT}`);
