@@ -2,12 +2,13 @@ import { useState } from "react";
 
 function NavBar() {
     const [loggedIn, setLoggedIn] = useState(false);
+    const [userID, setUserID] = useState(null);
 
     return (
         <nav>
-            <p>Logo</p>
+            <a href="/">Logo</a>
             <p>Search bar</p>
-            {loggedIn ? <p>Profile info</p> : <p>Log In</p>}
+            {loggedIn ? <a href={`/users/${userID}`}>Profile info</a> : <a href="/login">Log In</a>}
         </nav>
     )
 }

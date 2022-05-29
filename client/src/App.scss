@@ -1,17 +1,43 @@
 /* todo: define and import fonts */
 
+/* color variables */
+$lightblue-1: rgb(81, 144, 147);
+$midblue-1: rgb(65, 65, 159);
+$darkblue-1: rgb(51, 53, 66);
+
 /* universal styles */
 .page {
   display: flex;
   position: relative;
-  top: 5rem;
+  width: 100vw;
+  height: 100vh;
+  top: 4rem;
   flex-direction: column;
   align-items: center;
   z-index: 7;
+  background-color: $midblue-1;
 }
 
 button {
-  background-color: green;
+  background-color: $midblue-1;
+  color: white;
+  border-radius: 12px;
+  border-style: outset;
+  border-color: $lightblue-1;
+  width: 8rem;
+  height: 3rem;
+}
+
+button:hover {
+  background-color: $lightblue-1;
+  border-color: $midblue-1;
+  box-shadow: 0 0 4px 4px red;
+}
+
+button:active {
+  background-color: black;
+  border-style: inset;
+  border-color: white;
 }
 
 /* navbar styles */
@@ -22,39 +48,58 @@ nav {
   color: white;
   top: 0;
   justify-content: space-around;
+  align-items: center;
   width: 100%;
-  height: auto;
+  height: 4rem;
   border-bottom: 1px solid white;
   z-index: 9;
+
+  a {
+    color: white;
+  }
 }
 
 /* landing page styles */
-.landing > * {
-  display: flex;
-  flex-flow: column wrap;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  height: auto;
-  padding: 1.2rem;
-  margin-bottom: 5rem;
-}
 
-.landing header {
-  margin-top: 8rem;
-  width: 45vw;
-  background-color: gray;
-}
+.landing {
+  * {
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
 
-.landing section {
-  width: 60vw;
-  background-color: gray;
-}
+  header {
+    margin-top: 4rem;
+    width: 45vw;
+  }
+  section {
+    width: 60vw;
+  }
 
-.shop-buttons {
-  display: flex;
-  flex-flow: row nowrap;
-  width: 45vw;
-  background-color: gray;
-  justify-content: space-around;
+  header, section {
+    background-color: $lightblue-1;
+    padding: 1.2rem;
+    margin-bottom: 5rem;
+  }
+
+  header, section, .shop-buttons {
+    box-shadow: 4px 4px white;
+    transition: box-shadow ease 1s;
+  }
+
+  header:hover, section:hover, .shop-buttons:hover {
+    box-shadow: 12px 12px white;
+    transition: box-shadow ease 600ms;
+  }
+
+  .shop-buttons {
+    display: flex;
+    flex-flow: row nowrap;
+    width: 45vw;
+    height: 8rem;
+    justify-content: space-around;
+    background-color: $darkblue-1
+  }
 }

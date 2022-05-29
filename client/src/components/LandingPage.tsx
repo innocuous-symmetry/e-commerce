@@ -1,6 +1,9 @@
-import Page from "./Page";
+import Page from "../util/Page";
+import { useNavigate } from "react-router-dom";
 
 function LandingPage() {
+    const navigate = useNavigate();
+
     return (
         <Page classes="landing">
             <header>
@@ -15,7 +18,7 @@ function LandingPage() {
             </section>
 
             <div className="shop-buttons">
-                <button>SHOP ALL</button>
+                <button onClick={() => navigate('/products')}>SHOP ALL</button>
                 <button>SHOP BY...</button>
             </div>
         </Page>
