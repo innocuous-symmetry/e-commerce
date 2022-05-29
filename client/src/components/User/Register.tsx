@@ -10,9 +10,7 @@ function Register() {
     const [verify, setVerify] = useState<string>('');
     const [warningText, setWarningText] = useState<string>('initial');
 
-    const [userData, setUserData] = useState<userInfo>({email: '', name: '', password: ''});
-
-    const conditions = [name, email, password, verify];
+    const [userData, setUserData] = useState<userInfo>();
 
     // checks password complexity
     useEffect(() => {
@@ -37,29 +35,52 @@ function Register() {
     }, [password, verify]);
 
     // checks that all conditions for registration have been met
-    useEffect(() => {
-        let evaluating = true;
+    // useEffect(() => {
+    //     let evaluating = true;
 
-        if (!(conditions.includes('')) && warningText === '') {
-            evaluating = false;
+    //     if (!(conditions.includes('')) && warningText === '') {
+    //         evaluating = false;
+    //     }
+
+    //     if (!evaluating) {
+    //         const userEntry: userInfo = {
+    //             name: name,
+    //             email: email,
+    //             password: password
+    //         }
+    
+    //         console.log(userEntry);
+    //         setUserData(userEntry);
+
+    //         setWarningText('Conditions met!');
+    //     }
+    // }, [conditions, warningText, userData, name, email]);
+
+    // updates user info object on each render
+    useEffect(() => {
+        let newInfo: userInfo = {
+            name: name,
+            email: email,
+            password: password
         }
 
-        if (!evaluating) {
-            const userEntry: userInfo = {
-                name: name,
-                email: email,
-                password: password
-            }
-    
-            console.log(userEntry);
-            setUserData(userEntry);
+        setUserData(newInfo);
+    }, [name, email, password]);
+
+    // interrupts rendering loop by setting warning text on password data
+    useEffect(() => {
+        if (warningText === '') {
+            console.group('valid data');
+            console.log(userData);
+            console.groupEnd();
 
             setWarningText('Conditions met!');
         }
-    }, [conditions, warningText, userData, name, email]);
+    }, [userData, warningText]);
 
+    // allows registration submission if warning text has correct value and userData is defined with all required values
     const handleRegistration = async () => {
-        userData && await registerNewUser(userData);
+        warningText === "Conditions met!" && userData && await registerNewUser(userData);
 
         setName('');
         setEmail('');
