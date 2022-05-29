@@ -1,39 +1,15 @@
 import { useState } from 'react'
+import { getAllUsers, registerNewUser } from './util/apiUtils';
+import { userInfo } from './types/main';
 import './App.css'
 
 function App() {
   const [response, setResponse] = useState<any>(undefined);
 
-  type userInfo = {
-    email: string;
-    id?: number;
-    name: string;
-    password: string;
-  }
-
-  const doAPICall = async () => {
-    let serverCall = await fetch('http://localhost:8088/users')
-    .then(res => res.json());
-
-    serverCall && setResponse(serverCall);
-  }
-
-  const addSampleUser = async () => {
-    let newUser: userInfo = {
-      email: 'another@email.com',
-      name: "still another person",
-      password: "dumb_password"
-    }
-
-    let thing = await fetch('http://localhost:8088/register', {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(newUser)
-    });
-
-    if (thing.ok) alert('User added successfully.');
+  let newUser: userInfo = {
+    email: 'anotherperson@email.com',
+    name: "one more person",
+    password: "dumb_password"
   }
 
   return (
@@ -50,8 +26,8 @@ function App() {
       })}
       </div>
 
-      <button onClick={doAPICall}>API call?</button>
-      <button onClick={addSampleUser}>Add sample user</button>
+      <button onClick={() => getAllUsers().then(res => setResponse(res))}>API call?</button>
+      <button onClick={() => registerNewUser(newUser).then(res => alert(res))}>Add sample user</button>
     </div>
   )
 }
