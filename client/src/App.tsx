@@ -1,9 +1,7 @@
-import { useEffect, useState } from 'react'
-import logo from './logo.svg'
+import { useState } from 'react'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
   const [response, setResponse] = useState<any>(undefined);
 
   type userInfo = {
@@ -17,7 +15,6 @@ function App() {
     let serverCall = await fetch('http://localhost:8088/users')
     .then(res => res.json());
 
-    console.log(serverCall);
     serverCall && setResponse(serverCall);
   }
 
@@ -41,30 +38,20 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
-        <p>
-          <button type="button" onClick={() => setCount((count) => count + 1)}>
-            count is: {count}
-          </button>
-        </p>
+      <h2>Server response:</h2>
+      <div>
+      {response && response.map((field: userInfo) => {
+        return (
+          <>
+          <p key={`${field.name}_name`}>{field.name}</p>
+          <p key={`${field.name}_email`}>{field.email}</p>
+          </>
+        )
+      })}
+      </div>
 
-        <h2>Server response:</h2>
-        <div>
-        {response && response.map((field: userInfo) => {
-          return (
-            <>
-            <p key={`${field.name}_name`}>{field.name}</p>
-            <p key={`${field.name}_email`}>{field.email}</p>
-            </>
-          )
-        })}
-        </div>
-
-        <button onClick={doAPICall}>API call?</button>
-        <button onClick={addSampleUser}>Add sample user</button>
-      </header>
+      <button onClick={doAPICall}>API call?</button>
+      <button onClick={addSampleUser}>Add sample user</button>
     </div>
   )
 }
