@@ -18,6 +18,10 @@ $darkblue-1: rgb(51, 53, 66);
   background-color: $midblue-1;
 }
 
+.light-page {
+  background-color: $lightblue-1;
+}
+
 button {
   background-color: $midblue-1;
   color: white;
@@ -102,4 +106,9 @@ nav {
     justify-content: space-around;
     background-color: $darkblue-1
   }
+}
+
+// Login page styles
+.login {
+  display: flex;
 }
