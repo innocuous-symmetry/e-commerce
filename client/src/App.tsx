@@ -1,34 +1,22 @@
-import { useState } from 'react'
-import { getAllUsers, registerNewUser } from './util/apiUtils';
-import { userInfo } from './types/main';
+import NavBar from './components/Navbar';
+import LandingPage from './components/LandingPage';
+
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css'
+import LoginForm from './components/LoginForm';
+import Register from './components/Register';
 
 function App() {
-  const [response, setResponse] = useState<any>(undefined);
-
-  let newUser: userInfo = {
-    email: 'anotherperson@email.com',
-    name: "one more person",
-    password: "dumb_password"
-  }
-
   return (
-    <div className="App">
-      <h2>Server response:</h2>
-      <div>
-      {response && response.map((field: userInfo) => {
-        return (
-          <>
-          <p key={`${field.name}_name`}>{field.name}</p>
-          <p key={`${field.name}_email`}>{field.email}</p>
-          </>
-        )
-      })}
-      </div>
+    <BrowserRouter>
+        <NavBar/>
 
-      <button onClick={() => getAllUsers().then(res => setResponse(res))}>API call?</button>
-      <button onClick={() => registerNewUser(newUser).then(res => alert(res))}>Add sample user</button>
-    </div>
+        <Routes>
+          <Route path="/" element={<LandingPage/>} />
+          <Route path="/login" element={<LoginForm/>} />
+          <Route path="/register" element={<Register/>} />
+        </Routes>
+    </BrowserRouter>
   )
 }
 
