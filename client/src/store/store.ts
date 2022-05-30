@@ -1,23 +1,66 @@
-import { userInfo } from "../types/main";
+import { createContext } from "react";
+import { userInfo, Cart,  } from "../types/main";
 
-enum userActionType {
+// type definitions for reducer
+export enum ActionType {
     GETALL = 'GETALL',
     GETONE = 'GETONE',
     REGISTERNEW = 'REGISTERNEW',
-    UPDATEONE = 'UPDATEONE'
+    UPDATEONE = 'UPDATEONE',
+    SEARCH = 'SEARCH',
 }
 
-interface userAction {
-    type: userActionType;
+export interface userAction {
+    type: ActionType;
     payload: any;
 }
 
-const userReducer = (state: userInfo, action: userAction) => {
+export interface appState {
+    searchTerm: string,
+    user: userInfo,
+    cart: Cart
+}
+
+// empty object templates for initial state
+const undefinedUser: userInfo = {
+    email: '',
+    name: '',
+    password: ''
+}
+
+const emptyCart: Cart = {
+    cartID: 0,
+    userInfo: undefinedUser,
+    checkedOut: false,
+    contents: []
+}
+
+export const initialState: appState = {
+    searchTerm: '',
+    user: undefinedUser,
+    cart: emptyCart
+}
+
+export const reducer = (state: appState, action: userAction) => {
     const { type, payload } = action;
     switch (type) {
-        case userActionType.GETALL:
-            return {
-                // do something
+        case ActionType.GETALL:
+            return state;
+        case ActionType.GETONE:
+            return state;
+        case ActionType.REGISTERNEW:
+            return state;
+        case ActionType.UPDATEONE:
+            return state;
+        case ActionType.SEARCH:
+            let newState = {
+                ...state,
+                searchTerm: payload
             }
+            state = newState;
+            console.log(state.searchTerm);
+            return state;
     }
 }
+
+export const AppContext = createContext(initialState)

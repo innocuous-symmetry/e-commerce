@@ -1,4 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { useContext, useReducer } from 'react';
+import { appState, initialState, reducer, AppContext } from './store/store';
 
 import NavBar from './components/Navbar';
 import LandingPage from './components/LandingPage';
@@ -9,16 +11,21 @@ import Register from './components/User/Register';
 import './App.scss'
 
 function App() {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const context = useContext(AppContext);
+
   return (
     <BrowserRouter>
-        <NavBar/>
+      <AppContext.Provider value={context}>
+          <NavBar/>
 
-        <Routes>
-          <Route path="/" element={<LandingPage/>} />
-          <Route path="/login" element={<LoginForm/>} />
-          <Route path="/register" element={<Register/>} />
-          <Route path="/products" element={<Products/>} />
-        </Routes>
+          <Routes>
+            <Route path="/" element={<LandingPage/>} />
+            <Route path="/login" element={<LoginForm/>} />
+            <Route path="/register" element={<Register/>} />
+            <Route path="/products/" element={<Products />} />
+          </Routes>
+        </AppContext.Provider>
     </BrowserRouter>
   )
 }

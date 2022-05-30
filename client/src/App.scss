@@ -22,28 +22,6 @@ $darkblue-1: rgb(51, 53, 66);
   background-color: $lightblue-1;
 }
 
-button {
-  background-color: $midblue-1;
-  color: white;
-  border-radius: 12px;
-  border-style: outset;
-  border-color: $lightblue-1;
-  width: 8rem;
-  height: 3rem;
-}
-
-button:hover {
-  background-color: $lightblue-1;
-  border-color: $midblue-1;
-  box-shadow: 0 0 4px 4px red;
-}
-
-button:active {
-  background-color: black;
-  border-style: inset;
-  border-color: white;
-}
-
 /* navbar styles */
 nav {
   display: flex;
@@ -98,6 +76,28 @@ nav {
     transition: box-shadow ease 600ms;
   }
 
+  button {
+    background-color: $midblue-1;
+    color: white;
+    border-radius: 12px;
+    border-style: outset;
+    border-color: $lightblue-1;
+    width: 8rem;
+    height: 3rem;
+  }
+  
+  button:hover {
+    background-color: $lightblue-1;
+    border-color: $midblue-1;
+    box-shadow: 0 0 4px 4px red;
+  }
+  
+  button:active {
+    background-color: black;
+    border-style: inset;
+    border-color: white;
+  }
+
   .shop-buttons {
     display: flex;
     flex-flow: row nowrap;
@@ -111,4 +111,15 @@ nav {
 // Login page styles
 .login {
   display: flex;
+}
+
+// products styles
+.products-results {
+  display: flex;
+}
+
+.product-card {
+  background-color: white;
+  padding: 0.8rem;
+  margin: 0.5rem;
 }
