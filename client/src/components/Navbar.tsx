@@ -1,5 +1,6 @@
 import { useReducer, useState } from "react";
-import { initialState, reducer, ActionType } from "../store/store";
+import { initialState, reducer } from "../store/store";
+import { ActionType } from "../store/store_types";
 import { useNavigate } from 'react-router-dom';
 
 function NavBar() {

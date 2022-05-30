@@ -1,39 +1,5 @@
 import { createContext } from "react";
-import { userInfo, Cart,  } from "../types/main";
-
-// type definitions for reducer
-export enum ActionType {
-    GETALL,
-    GETCATEGORY,
-    REGISTERNEW,
-    UPDATEONE,
-    SEARCH,
-}
-
-export interface userAction {
-    type: ActionType;
-    payload: any;
-}
-
-export interface appState {
-    searchTerm: string,
-    user: userInfo,
-    cart: Cart
-}
-
-// empty object templates for initial state
-const undefinedUser: userInfo = {
-    email: '',
-    name: '',
-    password: ''
-}
-
-const emptyCart: Cart = {
-    cartID: 0,
-    userInfo: undefinedUser,
-    checkedOut: false,
-    contents: []
-}
+import { ActionType,userAction, appState, undefinedUser, emptyCart } from './store_types';
 
 export const initialState: appState = {
     searchTerm: '',
@@ -53,12 +19,11 @@ export const reducer = (state: appState, action: userAction) => {
         case ActionType.UPDATEONE:
             return state;
         case ActionType.SEARCH:
-            let newState = {
+            return {
                 ...state,
                 searchTerm: payload
             }
-            state = newState;
-            console.log(state.searchTerm);
+        default:
             return state;
     }
 }

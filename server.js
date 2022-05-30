@@ -4,7 +4,7 @@ const app = express();
 
 const session = require('express-session');
 
-require('dotenv').config({ path: './config.env' });
+require('dotenv').config({ path: './.env' });
 const PORT = process.env.PORT;
 
 app.use(cors());
@@ -14,10 +14,14 @@ app.use(express.urlencoded({
     extended: true
 }));
 
+const store = new session.MemoryStore();
 app.use(session({
-    secret: 'secret',
-    cookie: { maxAge: 300000000, secure: false }
-}))
+    secret: process.env.EXPRESS_SECRET,
+    cookie: { maxAge: 300000000, secure: false },
+    resave: false,
+    saveUninitialized: false,
+    store,
+}));
 
 const apiRouter = require('./routes/API');
 app.use(apiRouter);

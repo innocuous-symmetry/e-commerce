@@ -1,15 +1,28 @@
-import { useState } from "react";
+import { useState, useReducer } from "react";
+import { reducer, initialState } from "../../store/store";
+import { handleLogin } from "../../util/apiUtils";
 import Page from "../../util/Page";
 
-function LoginForm() {
-    enum PassVisible {
-        hide = 'password',
-        show = 'text'
-    }
+enum PassVisible {
+    hide = 'password',
+    show = 'text'
+}
 
-    const [username, setUsername] = useState<string>();
-    const [password, setPassword] = useState<string>();
+function LoginForm() {
+    const [state, dispatch] = useReducer(reducer, initialState);
+
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
     const [showPass, setShowPass] = useState<PassVisible>(PassVisible.hide);
+
+    const displaySession = async () => {
+        if (username === '' || password === '') return;
+        
+        const headers = handleLogin(username, password)
+        .then(res => res?.json());
+
+        if (headers) console.log(headers);
+    }
 
     return (
         <Page classes="login light-page">
@@ -42,12 +55,9 @@ function LoginForm() {
                             onClick={() => setShowPass((showPass === PassVisible.hide) ? PassVisible.show : PassVisible.hide)}
                         >Show password</button>
                     </div>
-
-                    <p>Username is: {username}</p>
-                    <p>Password is: {password}</p>
                 </form>
 
-
+                <button onClick={displaySession}>Log In</button>
             </section>
 
             <section className="link-to-register">

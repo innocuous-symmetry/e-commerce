@@ -3,6 +3,7 @@ export type userInfo = {
     id?: number;
     name: string;
     password: string;
+    headers: object
 }
 
 export type Product = {
