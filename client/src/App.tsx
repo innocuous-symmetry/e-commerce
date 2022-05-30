@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { useContext, useReducer } from 'react';
-import { appState, initialState, reducer, AppContext } from './store/store';
+import { useContext } from 'react';
+import { AppContext } from './store/store';
 
 import NavBar from './components/Navbar';
 import LandingPage from './components/LandingPage';
@@ -11,7 +11,6 @@ import Register from './components/User/Register';
 import './App.scss'
 
 function App() {
-  const [state, dispatch] = useReducer(reducer, initialState);
   const context = useContext(AppContext);
 
   return (

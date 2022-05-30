@@ -3,11 +3,11 @@ import { userInfo, Cart,  } from "../types/main";
 
 // type definitions for reducer
 export enum ActionType {
-    GETALL = 'GETALL',
-    GETONE = 'GETONE',
-    REGISTERNEW = 'REGISTERNEW',
-    UPDATEONE = 'UPDATEONE',
-    SEARCH = 'SEARCH',
+    GETALL,
+    GETCATEGORY,
+    REGISTERNEW,
+    UPDATEONE,
+    SEARCH,
 }
 
 export interface userAction {
@@ -46,7 +46,7 @@ export const reducer = (state: appState, action: userAction) => {
     switch (type) {
         case ActionType.GETALL:
             return state;
-        case ActionType.GETONE:
+        case ActionType.GETCATEGORY:
             return state;
         case ActionType.REGISTERNEW:
             return state;
