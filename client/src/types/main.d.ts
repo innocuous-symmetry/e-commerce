@@ -1,11 +1,18 @@
+// user details and metadata
 export type userInfo = {
     email: string;
     id?: number;
-    name: string;
+    name?: string;
     password: string;
     headers: object
 }
 
+export type LoginHeaders = {
+    email: string,
+    password: string
+}
+
+// product info
 export type Product = {
     productID?: number,
     name: string,
@@ -22,6 +29,7 @@ export type Category = {
     longDescription?: string
 }
 
+// user-specific cart and order details
 export type Cart = {
     cartID: number,
     userInfo: userInfo,

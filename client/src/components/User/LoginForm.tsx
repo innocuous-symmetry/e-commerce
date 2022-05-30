@@ -1,6 +1,8 @@
 import { useState, useReducer } from "react";
 import { reducer, initialState } from "../../store/store";
-import { handleLogin } from "../../util/apiUtils";
+import { ActionType, undefinedUser } from "../../store/store_types";
+import { userInfo, LoginHeaders } from "../../types/main";
+import { handleLogin, getOneUser } from "../../util/apiUtils";
 import Page from "../../util/Page";
 
 enum PassVisible {
@@ -13,15 +15,26 @@ function LoginForm() {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [showPass, setShowPass] = useState<PassVisible>(PassVisible.hide);
+    const [showPass, setShowPass] = useState(PassVisible.hide);
 
     const displaySession = async () => {
         if (username === '' || password === '') return;
         
-        const headers = handleLogin(username, password)
-        .then(res => res?.json());
+        const response = await handleLogin(username, password);
+        const json = await response?.json();
 
-        if (headers) console.log(headers);
+        if (json) {
+            console.log(json);
+            console.log(json.user);
+
+            let thisUser: userInfo = {
+                email: json.user.email,
+                password: json.user.password,
+                headers: json
+            }
+
+            dispatch({ type: ActionType.UPDATEONE, payload: thisUser });
+        }
     }
 
     return (

@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import { ActionType,userAction, appState, undefinedUser, emptyCart } from './store_types';
+import { ActionType, userAction, appState, undefinedUser, emptyCart } from './store_types';
 
 export const initialState: appState = {
     searchTerm: '',
@@ -22,6 +22,11 @@ export const reducer = (state: appState, action: userAction) => {
             return {
                 ...state,
                 searchTerm: payload
+            }
+        case ActionType.USERLOGIN:
+            return {
+                ...state,
+                user: payload
             }
         default:
             return state;
