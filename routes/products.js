@@ -22,20 +22,17 @@ productsRouter.route('/').get(async (req, res) => {
 
 // route to get a product by id
 productsRouter.route('/:id').get(async (req, res) => {
-    const id = req.params.id;
+    const { id } = req.params;
+    const newClient = client();
 
     try {
-        newClient.connect((err) => {
-            if (err) throw err;
-            console.log("Connection successful.");
-        });
-
+        newClient.connect().then(console.log("Connection successful."));
         const result = await newClient.query(("SELECT * FROM products WHERE id = ($1)"), [id]);
-        res.send(result.rows);
+        res.send(result.rows[0]);
     } catch(e) {
         console.log(e);
     } finally {
-        newClient.end()
+        await newClient.end()
         .then(console.log("Client disconnected."));
     }
 });

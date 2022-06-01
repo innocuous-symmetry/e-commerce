@@ -23,10 +23,14 @@ export type LoginHeaders = {
 
 // product info
 export type Product = {
-    productID?: number,
     name: string,
+    productID?: number,
+    category?: string
+    price?: string | number
     shortDescription?: string,
     longDescription?: string,
+    description?: string
+    minidescription?: string
     categoryID: number,
     inventory: number
 }

@@ -56,3 +56,14 @@ export const getAllProducts = async () => {
 
     return serverCall;
 }
+
+export const getProductDetails = async (productID: string) => {
+    let serverCall = await fetch(`http://localhost:8088/products/${productID}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }).then(res => res.json());
+
+    return serverCall;
+}
