@@ -6,9 +6,14 @@ export type userInfo = {
     lastName?: string
     email: string
     id?: number
+    
+    // NOTE: userInfo.name is deprecated
     name?: string
     password: string
+    verifyPassword?: string
     headers?: SessionHeader
+    created?: string
+    modified?: string
 }
 
 export type LoginHeaders = {
