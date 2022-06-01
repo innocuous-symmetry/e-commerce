@@ -19,7 +19,12 @@ loginRouter.route('/').post(async (req, res) => {
             req.session.authenticated = true;
             req.session.user = { email: email, password: password }
 
-            res.send(req.session);
+            let fullUserProfile = await newClient.query("SELECT * FROM users WHERE email = ($1)", [email]);
+
+            res.send({
+                session: req.session,
+                userProfile: fullUserProfile.rows[0]
+            });
         }
     } catch(e) {
         console.log(e);

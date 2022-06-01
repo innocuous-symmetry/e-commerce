@@ -25,13 +25,12 @@ function LoginForm() {
         const json = await response?.json();
 
         if (json) {
-            console.log(json);
-            console.log(json.user);
-
+            const { session, userProfile } = json;
             let thisUser: userInfo = {
-                email: json.user.email,
-                password: json.user.password,
-                headers: json
+                id: userProfile.id,
+                email: userProfile.email,
+                password: userProfile.password,
+                headers: session
             }
 
             setToDispatch(thisUser);
@@ -39,7 +38,7 @@ function LoginForm() {
     }
 
     useEffect(() => {
-        console.log('thing?');
+        if (!toDispatch) return;
         dispatch({ type: ActionType.USERLOGIN, payload: toDispatch });
     }, [toDispatch]);
 

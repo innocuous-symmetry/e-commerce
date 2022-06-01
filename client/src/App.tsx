@@ -7,6 +7,7 @@ import LandingPage from './components/LandingPage';
 import Products from './components/Products/Products';
 import LoginForm from './components/User/LoginForm';
 import Register from './components/User/Register';
+import UserProfile from './components/User/UserProfile';
 
 import './App.scss'
 
@@ -21,6 +22,7 @@ function App() {
           <Routes>
             <Route path="/" element={<LandingPage/>} />
             <Route path="/login" element={<LoginForm/>} />
+            <Route path="/users/:userID" element={<UserProfile profile={state.user.id} />} />
             <Route path="/register" element={<Register/>} />
             <Route path="/products/" element={<Products />} />
           </Routes>

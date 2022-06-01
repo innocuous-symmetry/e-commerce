@@ -35,5 +35,5 @@ export const handleLogin = async (email: string, password: string) => {
         body: JSON.stringify({ email: email, password: password })
     });
 
-    if (serverCall.ok) return serverCall;
+    return serverCall;
 }

@@ -5,11 +5,10 @@ import { useNavigate } from 'react-router-dom';
 
 function NavBar() {
     const [loggedIn, setLoggedIn] = useState(false);
-    const [userID, setUserID] = useState(null);
+    const [profText, setProfText] = useState(null);
     const [searchInput, setSearchInput] = useState('');
 
     const [state, dispatch] = useContext(AppContext);
-    // const { searchTerm, user, cart } = useContext(AppContext);
 
     const navigate = useNavigate();
 
@@ -20,24 +19,30 @@ function NavBar() {
         navigate(`/products?query=${searchInput}`);
     }
 
-    // const forceRender = () => {
-    //     console.log(searchTerm);
-    //     console.log(user);
-    // }
+    useEffect(() => {
+        if (state === initialState) return;
 
-    // useEffect(() => {
-    //     console.log('state updated!');
-    // }, [user])
+        console.log(state.user);
+
+        if (state.user && state.user.headers.authenticated) {
+            console.log('authenticated!');
+            setProfText(state.user.email);
+            setLoggedIn(true);
+        } else if (!state.user.authenticated) {
+            setLoggedIn(false);
+        }
+
+    }, [state]);
 
     return (
         <nav>
-            <a href="/">Logo</a>
+            <button onClick={() => navigate("/")}>Logo</button>
             <div className="searchbar">
                 <input type="text" placeholder="Search products" onChange={(e) => setSearchInput(e.target.value)}/>
                 <button onClick={handleSearch}>Search</button>
                 <button onClick={() => console.log(state)}>Render</button>
             </div>
-            {loggedIn ? <a href={`/users/${userID}`}>Profile info</a> : <a href="/login">Log In</a>}
+            {loggedIn ? <button onClick={() => navigate(`/users/${state.user.id}`)}>{profText}</button> : <button onClick={() => navigate("/login")}>Log In</button>}
         </nav>
     )
 }
