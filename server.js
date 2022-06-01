@@ -4,7 +4,7 @@ const app = express();
 
 const session = require('express-session');
 
-require('dotenv').config({ path: './.env' });
+require('dotenv').config();
 const PORT = process.env.PORT;
 
 app.use(cors());
