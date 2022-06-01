@@ -3,6 +3,7 @@ import { userInfo, Cart } from '../types/main';
 // type definitions for reducer
 export enum ActionType {
     GETALL,
+    GETPROFILE,
     GETCATEGORY,
     REGISTERNEW,
     UPDATEONE,

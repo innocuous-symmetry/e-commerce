@@ -24,6 +24,7 @@ export const registerNewUser = async (user: userInfo) => {
     });
   
     if (serverCall.ok) console.log('User added successfully.');
+    return serverCall;
 }
 
 export const handleLogin = async (email: string, password: string) => {
@@ -34,6 +35,24 @@ export const handleLogin = async (email: string, password: string) => {
         },
         body: JSON.stringify({ email: email, password: password })
     });
+
+    return serverCall;
+}
+
+export const unwrapLogin = async (email: string, password: string) => {
+    const response = await handleLogin(email, password);
+    const { session, userProfile } = await response.json();
+
+    return { session, userProfile };
+}
+
+export const getAllProducts = async () => {
+    let serverCall = await fetch('http://localhost:8088/products', {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }).then(res => res.json());
 
     return serverCall;
 }

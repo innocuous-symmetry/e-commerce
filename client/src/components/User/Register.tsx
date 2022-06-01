@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
-import { emptySessionHeader } from "../../store/store_types";
+import { useEffect, useReducer, useState } from "react";
+import { initialState, reducer } from "../../store/store";
+import { ActionType, emptySessionHeader } from "../../store/store_types";
 import { userInfo } from '../../types/main';
-import { registerNewUser } from "../../util/apiUtils";
+import { handleLogin, registerNewUser, unwrapLogin } from "../../util/apiUtils";
 import Page from "../../util/Page";
 
 function Register() {
@@ -15,6 +16,7 @@ function Register() {
         headers: emptySessionHeader
     }
 
+    const [state, dispatch] = useReducer(reducer, initialState);
     const [userInput, setUserInput] = useState(formInitialState);
     const [warningText, setWarningText] = useState('initial');
 
@@ -50,9 +52,15 @@ function Register() {
     // allows registration submission if warning text has correct value and userData is defined with all required values
     const handleRegistration = async () => {
         if (userInput === formInitialState) return;
-        warningText === "Conditions met!" && await registerNewUser(userInput);
+        if (warningText !== "Conditions met!") return;
+        
+        let register = await registerNewUser(userInput);
 
-        setUserInput(formInitialState);
+        if (register.ok) {
+            setUserInput(formInitialState);
+        } else {
+            console.log('Something went wrong');
+        }
     }
 
     return (
@@ -73,7 +81,7 @@ function Register() {
 
                 <div className="form-row">
                     <label htmlFor="email-register">Email address:</label>
-                    <input type="email" id="email-register" value={userInput.email} onChange={(e) => setUserInput({...userInput, email: e.target.value})}/>
+                    <input required type="email" id="email-register" value={userInput.email} onChange={(e) => setUserInput({...userInput, email: e.target.value})}/>
                 </div>
 
                 <p style={(warningText === 'initial') ? {display: 'none'} : {display: 'block'}}>{warningText}</p>
@@ -82,13 +90,13 @@ function Register() {
                     <label htmlFor="password-register" style={(warningText && warningText !== 'Conditions met!') ? {color: 'red'} : {color: 'green'}}>
                         Password:
                     </label>
-                    <input type="password" id="password-register" value={userInput.password} onChange={(e) => setUserInput({...userInput, password: e.target.value})}/>
+                    <input required type="password" id="password-register" value={userInput.password} onChange={(e) => setUserInput({...userInput, password: e.target.value})}/>
                 </div>
                 <div className="form-row">
                     <label htmlFor="password-verify" style={(warningText && warningText !== 'Conditions met!') ? {color: 'red'} : {color: 'green'}}>
                         Re-enter password:
                     </label>
-                    <input type="password" id="password-verify" value={userInput.verifyPassword} onChange={(e) => setUserInput({...userInput, verifyPassword: e.target.value})}/>
+                    <input required type="password" id="password-verify" value={userInput.verifyPassword} onChange={(e) => setUserInput({...userInput, verifyPassword: e.target.value})}/>
                 </div>
             </form>
 

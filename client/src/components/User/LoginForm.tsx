@@ -16,7 +16,6 @@ function LoginForm() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [showPass, setShowPass] = useState(PassVisible.hide);
-    const [toDispatch, setToDispatch] = useState<userInfo>();
 
     const displaySession = async () => {
         if (username === '' || password === '') return;
@@ -27,20 +26,17 @@ function LoginForm() {
         if (json) {
             const { session, userProfile } = json;
             let thisUser: userInfo = {
+                firstName: userProfile.first_name,
+                lastName: userProfile.last_name,
                 id: userProfile.id,
                 email: userProfile.email,
                 password: userProfile.password,
                 headers: session
             }
 
-            setToDispatch(thisUser);
+            dispatch({ type: ActionType.USERLOGIN, payload: thisUser });
         }
     }
-
-    useEffect(() => {
-        if (!toDispatch) return;
-        dispatch({ type: ActionType.USERLOGIN, payload: toDispatch });
-    }, [toDispatch]);
 
     return (
         <Page classes="login light-page">
