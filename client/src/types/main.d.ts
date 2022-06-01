@@ -2,10 +2,12 @@ import { SessionHeader } from "../store/store_types";
 
 // user details and metadata
 export type userInfo = {
-    email: string;
-    id?: number;
-    name?: string;
-    password: string;
+    firstName?: string
+    lastName?: string
+    email: string
+    id?: number
+    name?: string
+    password: string
     headers?: SessionHeader
 }
 

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { emptySessionHeader } from "../../store/store_types";
 import { userInfo } from '../../types/main';
 import { registerNewUser } from "../../util/apiUtils";
 import Page from "../../util/Page";
@@ -9,6 +10,12 @@ function Register() {
     const [password, setPassword] = useState<string>('');
     const [verify, setVerify] = useState<string>('');
     const [warningText, setWarningText] = useState<string>('initial');
+
+    const [userInput, setUserInput] = useState<userInfo>({
+        name: '',
+        email: '',
+        password: '',
+    })
 
     const [userData, setUserData] = useState<userInfo>();
 
@@ -34,35 +41,13 @@ function Register() {
         }
     }, [password, verify]);
 
-    // checks that all conditions for registration have been met
-    // useEffect(() => {
-    //     let evaluating = true;
-
-    //     if (!(conditions.includes('')) && warningText === '') {
-    //         evaluating = false;
-    //     }
-
-    //     if (!evaluating) {
-    //         const userEntry: userInfo = {
-    //             name: name,
-    //             email: email,
-    //             password: password
-    //         }
-    
-    //         console.log(userEntry);
-    //         setUserData(userEntry);
-
-    //         setWarningText('Conditions met!');
-    //     }
-    // }, [conditions, warningText, userData, name, email]);
-
     // updates user info object on each render
     useEffect(() => {
         let newInfo: userInfo = {
             name: name,
             email: email,
             password: password,
-            headers: {}
+            headers: emptySessionHeader
         }
 
         setUserData(newInfo);
@@ -71,10 +56,6 @@ function Register() {
     // interrupts rendering loop by setting warning text on password data
     useEffect(() => {
         if (warningText === '') {
-            console.group('valid data');
-            console.log(userData);
-            console.groupEnd();
-
             setWarningText('Conditions met!');
         }
     }, [userData, warningText]);
@@ -96,9 +77,16 @@ function Register() {
 
             <form>
                 <div className="form-row">
-                    <label htmlFor="name-register">Name:</label>
-                    <input type="text" id="name-register" value={name} onChange={(e) => setName(e.target.value)}/>
+                    <label htmlFor="first-name-register">First Name:</label>
+                    <input required type="text" id="name-register" value={name} onChange={(e) => setName(e.target.value)}/>
                 </div>
+
+                <div className="form-row">
+                    <label htmlFor="last-name-register">Last Name:</label>
+                    <input required type="text" id="last-name-register" value={name} onChange={(e) => setName(e.target.value)}/>
+                </div>
+
+
                 <div className="form-row">
                     <label htmlFor="email-register">Email address:</label>
                     <input type="email" id="email-register" value={email} onChange={(e) => setEmail(e.target.value)}/>

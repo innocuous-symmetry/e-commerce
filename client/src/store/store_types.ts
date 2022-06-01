@@ -46,3 +46,15 @@ export const emptyCart: Cart = {
     checkedOut: false,
     contents: []
 }
+
+export const emptySessionHeader: SessionHeader = {
+    authenticated: false,
+    cookie: {
+        expires: "",
+        httpOnly: false,
+        originalMaxAge: 0,
+        path: "",
+        secure: false,
+    },
+    user: undefinedUser
+}
