@@ -1,10 +1,12 @@
+import { SessionHeader } from "../store/store_types";
+
 // user details and metadata
 export type userInfo = {
     email: string;
     id?: number;
     name?: string;
     password: string;
-    headers: object
+    headers?: SessionHeader
 }
 
 export type LoginHeaders = {

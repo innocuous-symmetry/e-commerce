@@ -61,7 +61,8 @@ function Register() {
         let newInfo: userInfo = {
             name: name,
             email: email,
-            password: password
+            password: password,
+            headers: {}
         }
 
         setUserData(newInfo);
@@ -80,7 +81,8 @@ function Register() {
 
     // allows registration submission if warning text has correct value and userData is defined with all required values
     const handleRegistration = async () => {
-        warningText === "Conditions met!" && userData && await registerNewUser(userData);
+        if (!userData) return;
+        warningText === "Conditions met!" && await registerNewUser(userData);
 
         setName('');
         setEmail('');

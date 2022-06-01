@@ -21,12 +21,23 @@ export interface appState {
     cart: Cart
 }
 
+export type SessionHeader = {
+    authenticated: boolean
+    cookie: {
+        expires: string
+        httpOnly: boolean
+        originalMaxAge: number
+        path: string
+        secure: boolean
+    }
+    user?: userInfo
+}
+
 // empty object templates for initial state
 export const undefinedUser: userInfo = {
     email: '',
     name: '',
     password: '',
-    headers: {}
 }
 
 export const emptyCart: Cart = {

@@ -19,11 +19,15 @@ export const reducer = (state: appState, action: userAction) => {
         case ActionType.UPDATEONE:
             return state;
         case ActionType.SEARCH:
+            console.log(payload);
+
             return {
                 ...state,
                 searchTerm: payload
             }
         case ActionType.USERLOGIN:
+            console.log(payload);
+
             return {
                 ...state,
                 user: payload
@@ -33,4 +37,4 @@ export const reducer = (state: appState, action: userAction) => {
     }
 }
 
-export const AppContext = createContext(initialState)
+export const AppContext = createContext<appState | any>(initialState)

@@ -1,8 +1,8 @@
-import { useState, useReducer } from "react";
-import { reducer, initialState } from "../../store/store";
-import { ActionType, undefinedUser } from "../../store/store_types";
-import { userInfo, LoginHeaders } from "../../types/main";
-import { handleLogin, getOneUser } from "../../util/apiUtils";
+import { useState, useEffect, useContext } from "react";
+import { AppContext } from "../../store/store";
+import { ActionType } from "../../store/store_types";
+import { userInfo } from "../../types/main";
+import { handleLogin } from "../../util/apiUtils";
 import Page from "../../util/Page";
 
 enum PassVisible {
@@ -11,11 +11,12 @@ enum PassVisible {
 }
 
 function LoginForm() {
-    const [state, dispatch] = useReducer(reducer, initialState);
+    const [state, dispatch] = useContext(AppContext);
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [showPass, setShowPass] = useState(PassVisible.hide);
+    const [toDispatch, setToDispatch] = useState<userInfo>();
 
     const displaySession = async () => {
         if (username === '' || password === '') return;
@@ -33,9 +34,14 @@ function LoginForm() {
                 headers: json
             }
 
-            dispatch({ type: ActionType.UPDATEONE, payload: thisUser });
+            setToDispatch(thisUser);
         }
     }
+
+    useEffect(() => {
+        console.log('thing?');
+        dispatch({ type: ActionType.USERLOGIN, payload: toDispatch });
+    }, [toDispatch]);
 
     return (
         <Page classes="login light-page">
