@@ -1,10 +1,9 @@
 const express = require('express');
 const cors = require('cors');
-const app = express();
-
 const session = require('express-session');
-
 require('dotenv').config({ path: './.env' });
+
+const app = express();
 const PORT = process.env.PORT;
 
 app.use(cors());
@@ -14,13 +13,15 @@ app.use(express.urlencoded({
     extended: true
 }));
 
-const store = new session.MemoryStore();
 app.use(session({
     secret: process.env.EXPRESS_SECRET,
     cookie: { maxAge: 300000000, secure: false },
     resave: false,
     saveUninitialized: false,
-    store,
+    store: new (require('connect-pg-simple')(session))({
+        pool: require('./db/Client').pool,
+        tableName: 'sessions',
+    })
 }));
 
 const apiRouter = require('./routes/API');

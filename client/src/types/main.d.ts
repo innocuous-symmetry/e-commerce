@@ -1,4 +1,4 @@
-import { SessionHeader } from "../store/store_types";
+import { SessionHeader } from "../store/store";
 
 // user details and metadata
 export type userInfo = {
