@@ -27,7 +27,9 @@ productsRouter.route('/:id').get(async (req, res) => {
 
     try {
         newClient.connect().then(console.log("Connection successful."));
-        const result = await newClient.query(("SELECT * FROM products WHERE id = ($1)"), [id]);
+        const result = await newClient.query((
+            "SELECT * FROM products WHERE id = ($1)"
+            ), [id]);
         res.send(result.rows[0]);
     } catch(e) {
         console.log(e);
@@ -36,6 +38,25 @@ productsRouter.route('/:id').get(async (req, res) => {
         .then(console.log("Client disconnected."));
     }
 });
+
+// get all product categories
+productsRouter.route('/categories').get(async (req, res) => {
+    res.send('check?');
+    // const newClient = client();
+
+    // try {
+    //     newClient.connect().then(console.log("Connection successful."));
+    //     const result = await newClient.query("SELECT * FROM products");
+
+    //     res.send(result);
+
+    // } catch(e) {
+    //     console.log(e);
+    // } finally {
+    //     await newClient.end()
+    //     .then(console.log("Client disconnected."));
+    // }
+})
 
 // post a product from req.body
 productsRouter.route('/').post(async (req, res) => {
