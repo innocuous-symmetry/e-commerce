@@ -6,6 +6,7 @@ const client = require('../db/Client');
 loginRouter.route('/').post(async (req, res) => {
     const newClient = client();
     const { email, password } = req.body;
+    const session = req.session;
     
     try {
         newClient.connect().then(console.log("Connection successful."));
