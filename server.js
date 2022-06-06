@@ -19,8 +19,8 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     store: new (require('connect-pg-simple')(session))({
-        pool: require('./db/Client').pool,
-        tableName: 'sessions',
+        conString: process.env.CONNECTION,
+        createTableIfMissing: true,
     })
 }));
 
