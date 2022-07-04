@@ -28,6 +28,26 @@ export const reducer = (state: appState, action: userAction) => {
                 ...state,
                 user: payload
             }
+        case ActionType.ADDTOCART:
+            let updatedContents = state.cart.contents;
+            console.log(action.payload);
+            updatedContents.push(action.payload);
+
+            return {
+                ...state,
+                cart: {
+                    ...state.cart,
+                    contents: updatedContents
+                }
+            }
+        case ActionType.UPDATESUBTOTAL:
+            return {
+                ...state,
+                cart: {
+                    ...state.cart,
+                    subtotal: action.payload
+                }
+            }
         default:
             return state;
     }

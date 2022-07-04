@@ -22,9 +22,7 @@ function NavBar() {
     useEffect(() => {
         if (state === initialState) return;
 
-        console.log(state.user);
-
-        if (state.user && state.user.headers.authenticated) {
+        if (state.user && state.user.headers?.authenticated) {
             console.log('authenticated!');
             setProfText(state.user.email);
             setLoggedIn(true);
@@ -42,7 +40,13 @@ function NavBar() {
                 <button onClick={handleSearch}>Search</button>
                 <button onClick={() => console.log(state)}>Render</button>
             </div>
-            {loggedIn ? <button onClick={() => navigate(`/users/${state.user.id}`)}>{profText}</button> : <button onClick={() => navigate("/login")}>Log In</button>}
+            {loggedIn ?
+                <>
+                <button onClick={() => navigate(`/users/${state.user.id}`)}>{profText}</button>
+                <button onClick={() => navigate('/cart')}>Your cart</button>
+                </>
+            :
+                <button onClick={() => navigate("/login")}>Log In</button>}
         </nav>
     )
 }

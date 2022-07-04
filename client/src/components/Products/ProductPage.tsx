@@ -20,7 +20,7 @@ export default function ProductPage() {
 
             <p>(a photo here)</p>
             <p>{info.description}</p>
-            <p>Price: {info.price}</p>
+            <p>Price: ${info.price}</p>
         </Page>
         : <></>
     )

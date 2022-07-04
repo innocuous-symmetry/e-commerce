@@ -8,7 +8,9 @@ export enum ActionType {
     REGISTERNEW,
     UPDATEONE,
     SEARCH,
-    USERLOGIN
+    USERLOGIN,
+    ADDTOCART,
+    UPDATESUBTOTAL
 }
 
 export interface userAction {
