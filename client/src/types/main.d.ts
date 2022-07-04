@@ -26,7 +26,9 @@ export type Product = {
     name: string,
     productID?: number,
     category?: string
-    price?: string | number
+    price?: string | number,
+    // when item is included in cart
+    quantity?: number,
     shortDescription?: string,
     longDescription?: string,
     description?: string
@@ -47,7 +49,8 @@ export type Cart = {
     cartID: number,
     userInfo: userInfo,
     checkedOut: boolean,
-    contents: Product[]
+    contents: Product[],
+    subTotal?: number
 }
 
 export type Order = {

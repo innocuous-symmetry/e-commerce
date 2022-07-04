@@ -22,9 +22,7 @@ function NavBar() {
     useEffect(() => {
         if (state === initialState) return;
 
-        console.log(state.user);
-
-        if (state.user && state.user.headers.authenticated) {
+        if (state.user && state.user.headers?.authenticated) {
             console.log('authenticated!');
             setProfText(state.user.email);
             setLoggedIn(true);

@@ -40,6 +40,14 @@ export const reducer = (state: appState, action: userAction) => {
                     contents: updatedContents
                 }
             }
+        case ActionType.UPDATESUBTOTAL:
+            return {
+                ...state,
+                cart: {
+                    ...state.cart,
+                    subtotal: action.payload
+                }
+            }
         default:
             return state;
     }

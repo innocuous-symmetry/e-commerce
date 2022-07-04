@@ -9,7 +9,8 @@ export enum ActionType {
     UPDATEONE,
     SEARCH,
     USERLOGIN,
-    ADDTOCART
+    ADDTOCART,
+    UPDATESUBTOTAL
 }
 
 export interface userAction {

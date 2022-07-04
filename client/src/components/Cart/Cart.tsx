@@ -1,22 +1,53 @@
 import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../store/store";
+import { ActionType } from "../../store/store_types";
 import { Product } from '../../types/main';
+import { getSubtotal } from "../../util/helpers";
 import Page from "../../util/Page";
 import CartItem from "./CartItem";
 
 function Cart() {
     const [state, dispatch] = useContext(AppContext);
     const [contents, setContents] = useState<JSX.Element>();
+    const [data, setData] = useState<any>();
 
     useEffect(() => {
-        setContents(
-            state.cart.contents.map((product: Product) => <CartItem product={product} />)
-        )
-    }, [state, setContents]);
+        if (!state.cart.contents) return;
 
+        let newProducts: Array<Product> = [];
+        for (let item of state.cart.contents) {
+            const withQuantity = {
+                ...item,
+                quantity: 1
+            }
+            const foundItem = newProducts.findIndex((res) => res.name === item.name);
+            if (foundItem === -1) {
+                newProducts.push(withQuantity);
+            } else {
+                // @ts-ignore
+                newProducts[foundItem].quantity += 1;
+            }
+        }
+
+        for (let item of newProducts) {
+            if (typeof item.quantity !== 'number') {
+                throw new Error("Quantity is possibly undefined in Cart.tsx");
+            }
+            item.quantity = item.quantity / 2;
+        }
+
+        setData(newProducts);
+    }, [state]);
+
+    /**
+     * PROBLEMATIC USEEFFECT BELOW
+     * LOOP BEHAVIOR ON DISPATCH
+     */
+    
     useEffect(() => {
-        console.log(contents);
-    }, [contents]);
+        let subtotal = getSubtotal(data);
+        subtotal && dispatch({ type: ActionType.UPDATESUBTOTAL, payload: subtotal });
+    }, [data, getSubtotal]);
 
     return (
         <Page>
@@ -29,7 +60,12 @@ function Cart() {
         }
 
         <section id="cart-contents">
-            {contents || null}
+            { data && data.map((product: Product) => <CartItem product={product} />) }
+        </section>
+
+        <section id="subtotal">
+            <p>Subtotal:</p>
+            <p>{state.cart.subtotal || "Not found"}</p>
         </section>
         </Page>
     )
