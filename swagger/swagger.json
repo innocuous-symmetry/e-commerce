@@ -1,0 +1,9 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+      "title": "E-Commerce Project",
+      "description": "Full Stack Portfolio project built using Postgres, Express, React and TypeScript",
+      "version": "0.0.1"
+    },
+    "paths": {}
+  }

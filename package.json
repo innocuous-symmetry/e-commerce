@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "nodemon server.js"
   },
   "engines": {
     "node": "v16.13.1"
@@ -21,13 +21,16 @@
     "express": "^4.17.3",
     "express-session": "^1.17.3",
     "helmet": "^5.1.0",
+    "js-yaml": "^4.1.0",
     "oauth2-server": "^3.1.1",
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
     "pg": "^8.7.3",
+    "swagger-ui-express": "^4.4.0",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "@types/uuid": "^8.3.4"
+    "@types/uuid": "^8.3.4",
+    "nodemon": "^2.0.18"
   }
 }

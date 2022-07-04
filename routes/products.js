@@ -40,7 +40,7 @@ productsRouter.route('/:id').get(async (req, res) => {
 // post a product from req.body
 productsRouter.route('/').post(async (req, res) => {
     const newClient = client();
-    const { name, description, category, categoryID } = req.body;
+    const { name, description, category, categoryID, price } = req.body;
 
     try {
         newClient.connect((err) => {
@@ -51,7 +51,7 @@ productsRouter.route('/').post(async (req, res) => {
             }
         });
 
-        await newClient.query(("INSERT INTO products (name, description, category, category_id) VALUES ($1, $2, $3, $4)"), [name, description, category, categoryID]);
+        await newClient.query(("INSERT INTO products (name, description, category, category_id, price) VALUES ($1, $2, $3, $4, $5)"), [name, description, category, categoryID, price]);
         res.sendStatus(204);
     } catch(e) {
         console.log(e);
