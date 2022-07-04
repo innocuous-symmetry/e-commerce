@@ -123,3 +123,12 @@ nav {
   padding: 0.8rem;
   margin: 0.5rem;
 }
+
+// cart styles
+.cart-item-panel {
+  display: flex;
+  flex-direction: column;
+  padding: 0 2rem;
+  background-color: white;
+  width: 75vw;
+}

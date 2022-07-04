@@ -8,9 +8,10 @@ import Products from './components/Products/Products';
 import LoginForm from './components/User/LoginForm';
 import Register from './components/User/Register';
 import UserProfile from './components/User/UserProfile';
+import ProductPage from './components/Products/ProductPage';
+import Cart from './components/Cart/Cart';
 
 import './App.scss'
-import ProductPage from './components/Products/ProductPage';
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -26,6 +27,7 @@ function App() {
             <Route path="/users/:userID" element={<UserProfile profile={state.user.id} />} />
             <Route path="/register" element={<Register/>} />
             <Route path="/products/" element={<Products />} />
+            <Route path="/cart/" element={<Cart />} />
             <Route path="/products/:productID" element={<ProductPage />} />
           </Routes>
         </AppContext.Provider>

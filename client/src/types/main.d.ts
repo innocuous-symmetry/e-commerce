@@ -7,7 +7,7 @@ export type userInfo = {
     email: string
     id?: number
     
-    // NOTE: userInfo.name is deprecated
+    // NOTE: userInfo.name => displayName?
     name?: string
     password: string
     verifyPassword?: string

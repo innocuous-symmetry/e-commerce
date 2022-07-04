@@ -1,9 +1,11 @@
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import Route from 'react-router-dom';
-import ProductPage from "./ProductPage";
+import { addToCart } from "../../util/helpers";
+import { AppContext } from "../../store/store";
 
 export default function ProductCard({ productData }: any) {
     const { name, category, description, price, id } = productData;
+    const [state, dispatch] = useContext(AppContext);
     const navigate = useNavigate();
 
     return (
@@ -15,7 +17,14 @@ export default function ProductCard({ productData }: any) {
             <p>Price: {`$${price}` || "Free, apparently!"}</p>
             <div className="product-options">
                 <button onClick={() => navigate(`/products/${id}`)}>More info</button>
-                <button>Add to Cart</button>
+
+                {
+                state.user.headers && state.user.headers.authenticated ?
+                <button onClick={() => addToCart(productData, dispatch)}>Add to Cart</button>
+                :
+                <button onClick={() => navigate('/login')}>Login to add to your cart</button>
+                }
+
             </div>
         </div>
     )

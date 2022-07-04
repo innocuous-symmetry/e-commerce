@@ -42,7 +42,13 @@ function NavBar() {
                 <button onClick={handleSearch}>Search</button>
                 <button onClick={() => console.log(state)}>Render</button>
             </div>
-            {loggedIn ? <button onClick={() => navigate(`/users/${state.user.id}`)}>{profText}</button> : <button onClick={() => navigate("/login")}>Log In</button>}
+            {loggedIn ?
+                <>
+                <button onClick={() => navigate(`/users/${state.user.id}`)}>{profText}</button>
+                <button onClick={() => navigate('/cart')}>Your cart</button>
+                </>
+            :
+                <button onClick={() => navigate("/login")}>Log In</button>}
         </nav>
     )
 }

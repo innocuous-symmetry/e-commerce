@@ -1,4 +1,5 @@
 import { useEffect, useReducer, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { initialState, reducer } from "../../store/store";
 import { ActionType, emptySessionHeader } from "../../store/store_types";
 import { userInfo } from '../../types/main';
@@ -16,6 +17,7 @@ function Register() {
         headers: emptySessionHeader
     }
 
+    const navigate = useNavigate();
     const [state, dispatch] = useReducer(reducer, initialState);
     const [userInput, setUserInput] = useState(formInitialState);
     const [warningText, setWarningText] = useState('initial');
@@ -58,6 +60,7 @@ function Register() {
 
         if (register.ok) {
             setUserInput(formInitialState);
+            navigate('/');
         } else {
             console.log('Something went wrong');
         }
