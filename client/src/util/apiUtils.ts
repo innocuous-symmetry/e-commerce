@@ -1,21 +1,22 @@
 import { userInfo } from '../types/main';
+const APISTRING = 'http://localhost:8088/api';
 
 export const getAllUsers = async () => {
-    let serverCall = await fetch('http://localhost:8088/users')
+    let serverCall = await fetch(APISTRING + '/users')
     .then(res => res.json());
 
     return serverCall;
 }
 
 export const getOneUser = async (email: string) => {
-    let serverCall = await fetch(`http://localhost:8088/users?email=${email}`)
+    let serverCall = await fetch(`${APISTRING}/users?email=${email}`)
     .then(res => res.json());
 
     return serverCall;
 }
 
 export const registerNewUser = async (user: userInfo) => {
-    let serverCall = await fetch('http://localhost:8088/register', {
+    let serverCall = await fetch(APISTRING + '/register', {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -28,7 +29,7 @@ export const registerNewUser = async (user: userInfo) => {
 }
 
 export const handleLogin = async (email: string, password: string) => {
-    let serverCall = await fetch('http://localhost:8088/login', {
+    let serverCall = await fetch(APISTRING + '/login', {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -47,7 +48,7 @@ export const unwrapLogin = async (email: string, password: string) => {
 }
 
 export const getAllProducts = async () => {
-    let serverCall = await fetch('http://localhost:8088/products', {
+    let serverCall = await fetch(APISTRING + '/products', {
         method: "GET",
         headers: {
             "Content-Type": "application/json"
@@ -58,7 +59,7 @@ export const getAllProducts = async () => {
 }
 
 export const getProductDetails = async (productID: string) => {
-    let serverCall = await fetch(`http://localhost:8088/products/${productID}`, {
+    let serverCall = await fetch(`${APISTRING}/products/${productID}`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json"

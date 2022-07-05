@@ -1,7 +1,7 @@
 const { connect } = require('../db/Pool');
+const bcrypt = require('bcrypt');
 
-async function LoginService(data) {
-    const { email, password } = data;
+async function LoginService(email, password) {
     const client = await connect();
 
     try {
@@ -17,18 +17,44 @@ async function LoginService(data) {
 
             let fullUserProfile = await client.query("SELECT * FROM users WHERE email = ($1)", [email]);
 
-            res.send({
+            return {
                 session: req.session,
                 userProfile: fullUserProfile.rows[0]
-            });
+            }
         }
     } catch(e) {
         await client.query("ROLLBACK");
         throw new Error(e);
     } finally {
-        client.release()
+        client.release();
         console.log("Client disconnected.");
     }
 }
 
-module.exports = { LoginService }
+async function RegisterService(firstName, lastName, email, password) {
+    const input = "INSERT INTO users (first_name, last_name, email, password) values ($1, $2, $3, $4)";
+
+    const salt = await bcrypt.genSalt(10);
+    const hash = await bcrypt.hash(password, salt);
+
+    const client = await connect();
+    let success;
+
+    try {
+        await client.query("BEGIN");
+        await client.query(input, [firstName, lastName, email, hash]);
+        await client.query("COMMIT");
+
+        success = true;
+    } catch(e) {
+        await client.query("ROLLBACK");
+        console.log(e);
+        success = false;
+    } finally {
+        client.release();
+        console.log("Client disconnected.");
+        return success;
+    }
+}
+
+module.exports = { LoginService, RegisterService }

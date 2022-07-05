@@ -1,6 +1,6 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
-const { connect } = require('../db/Pool');
+const { LoginService } = require('../services/Auth');
 
 module.exports = (app) => {
     app.use(passport.initialize());
@@ -18,8 +18,14 @@ module.exports = (app) => {
     ** TO DO: FINISH CONFIGURING LOCAL STRATEGY
     ***/
 
-    app.use(new LocalStrategy(async (email, password, done) => {
-        const client = await connect();
-        const account = await client.query("SELECT * FROM users WHERE email = ($1)", [email])
+    passport.use(new LocalStrategy(async (email, password, done) => {
+        try {
+            const response = await LoginService(email, password);
+            return done(null, response);
+        } catch(e) {
+            return done(e);
+        }
     }));
+
+    return passport;
 }

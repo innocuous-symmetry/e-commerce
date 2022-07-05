@@ -20,21 +20,25 @@ function LoginForm() {
     const displaySession = async () => {
         if (username === '' || password === '') return;
         
-        const response = await handleLogin(username, password);
-        const json = await response?.json();
-
-        if (json) {
-            const { session, userProfile } = json;
-            let thisUser: userInfo = {
-                firstName: userProfile.first_name,
-                lastName: userProfile.last_name,
-                id: userProfile.id,
-                email: userProfile.email,
-                password: userProfile.password,
-                headers: session
+        try {
+            const response = await handleLogin(username, password);
+            const json = await response?.json();
+    
+            if (json) {
+                const { session, userProfile } = json;
+                let thisUser: userInfo = {
+                    firstName: userProfile.first_name,
+                    lastName: userProfile.last_name,
+                    id: userProfile.id,
+                    email: userProfile.email,
+                    password: userProfile.password,
+                    headers: session
+                }
+    
+                dispatch({ type: ActionType.USERLOGIN, payload: thisUser });
             }
-
-            dispatch({ type: ActionType.USERLOGIN, payload: thisUser });
+        } catch(e) {
+            console.log(e);
         }
     }
 

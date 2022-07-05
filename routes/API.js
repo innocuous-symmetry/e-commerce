@@ -1,10 +1,14 @@
 const express = require('express');
 const apiRouter = express.Router();
 
-apiRouter.use('/users', require('./user'));
-apiRouter.use('/products', require('./products'));
-apiRouter.use('/register', require('./register'));
-apiRouter.use('/login', require('./login'));
-apiRouter.use('/pool-experiment', require('./_experimental'));
+const userRouter = require('./user');
+const productsRouter = require('./products');
+const registerRouter = require('./register');
+const loginRouter = require('./login');
 
-module.exports = apiRouter;
+module.exports = (app, passport) => {
+    loginRouter(app, passport);
+    productsRouter(app);
+    registerRouter(app);
+    userRouter(app);
+};
