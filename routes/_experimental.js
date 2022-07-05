@@ -37,6 +37,7 @@ experimentRouter.route('/').put(async (req, res) => {
             throw new Error(e);
         } finally {
             client.release();
+            console.log("Client disconnected.");
         }
     }
 })

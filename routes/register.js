@@ -1,26 +1,27 @@
+const registerRouter = require('express').Router();
+const { connect } = require('../db/Pool');
 const bcrypt = require('bcrypt');
 
-const registerRouter = require('express').Router();
-const client = require('../db/Client');
-
 registerRouter.route('/').post(async (req, res) => {
-    const newClient = client();
     const { firstName, lastName, email, password } = req.body;
+    const input = "INSERT INTO users (first_name, last_name, email, password) values ($1, $2, $3, $4)";
 
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(password, salt);
 
+    const client = await connect();
+
     try {
-        newClient.connect().then(console.log("Connection successful."));
-        await newClient.query(
-            "INSERT INTO users (first_name, last_name, email, password) values ($1, $2, $3, $4)",
-            [firstName, lastName, email, hash]);
+        await client.query("BEGIN");
+        await client.query(input, [firstName, lastName, email, hash]);
+        await client.query("COMMIT");
         res.sendStatus(200);
     } catch(e) {
-        console.log(e);
+        await client.query("ROLLBACK");
+        throw new Error(e);
     } finally {
-        await newClient.end()
-        .then(console.log("Client disconnected."));
+        client.release();
+        console.log("Client disconnected.");
     }
 });
 

@@ -1,15 +1,13 @@
+const loginRouter = require('express').Router();
+const { connect } = require('../db/Pool');
 const bcrypt = require('bcrypt');
 
-const loginRouter = require('express').Router();
-const client = require('../db/Client');
-
 loginRouter.route('/').post(async (req, res) => {
-    const newClient = client();
     const { email, password } = req.body;
+    const client = await connect();
     
     try {
-        newClient.connect().then(console.log("Connection successful."));
-        let hash = await newClient.query("SELECT password FROM users WHERE email = ($1)", [email]);
+        let hash = await client.query("SELECT password FROM users WHERE email = ($1)", [email]);
         hash = hash.rows[0].password;
 
         const match = bcrypt.compare(password, hash);
@@ -19,7 +17,7 @@ loginRouter.route('/').post(async (req, res) => {
             req.session.authenticated = true;
             req.session.user = { email: email, password: password }
 
-            let fullUserProfile = await newClient.query("SELECT * FROM users WHERE email = ($1)", [email]);
+            let fullUserProfile = await client.query("SELECT * FROM users WHERE email = ($1)", [email]);
 
             res.send({
                 session: req.session,
@@ -27,10 +25,11 @@ loginRouter.route('/').post(async (req, res) => {
             });
         }
     } catch(e) {
-        console.log(e);
+        await client.query("ROLLBACK");
+        throw new Error(e);
     } finally {
-        await newClient.end()
-        .then(console.log("Client disconnected."));
+        client.release()
+        console.log("Client disconnected.");
     }
 });
 

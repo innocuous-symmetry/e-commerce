@@ -1,6 +1,5 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
-const client = require('../db/Client');
 
 module.exports = (app) => {
     app.use(passport.initialize());

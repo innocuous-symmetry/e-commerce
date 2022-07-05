@@ -1,62 +1,64 @@
 const express = require('express');
 const productsRouter = express.Router();
-
-const client = require('../db/Client');
+const { connect } = require('../db/Pool');
 
 // route to get all products
 productsRouter.route('/').get(async (req, res) => {
-    const newClient = client();
+    const client = await connect();
 
     try {
-        newClient.connect()
-        .then(console.log('Success'));
-        const result = await newClient.query("SELECT * FROM products");
-        res.send(result.rows);
+        await client.query("BEGIN");
+        const result = await client.query("SELECT * FROM products");
+        await client.query("COMMIT");
+        if (result) res.send(result.rows);
     } catch(e) {
-        console.log(e);
+        await client.query("ROLLBACK");
+        throw new Error(e);
     } finally {
-        newClient.end()
-        .then(console.log("Client disconnected."));
+        client.release();
+        console.log("Client disconnected.");
     }
 });
 
 // route to get a product by id
 productsRouter.route('/:id').get(async (req, res) => {
     const { id } = req.params;
-    const newClient = client();
+    const client = await connect();
 
     try {
-        newClient.connect().then(console.log("Connection successful."));
-        const result = await newClient.query(("SELECT * FROM products WHERE id = ($1)"), [id]);
-        res.send(result.rows[0]);
+        await client.query("BEGIN");
+        const result = await client.query(("SELECT * FROM products WHERE id = ($1)"), [id]);
+        await client.query("COMMIT");
+        if (result) res.send(result.rows[0]);
     } catch(e) {
-        console.log(e);
+        await client.query("ROLLBACK");
+        throw new Error(e);
     } finally {
-        await newClient.end()
-        .then(console.log("Client disconnected."));
+        client.release()
+        console.log("Client disconnected.");
     }
 });
 
 // post a product from req.body
 productsRouter.route('/').post(async (req, res) => {
-    const newClient = client();
     const { name, description, category, categoryID, price } = req.body;
+    const input = `
+        INSERT INTO products (name, description, category, category_id, price)
+        VALUES ($1, $2, $3, $4, $5)
+    `
+
+    const client = await connect();
 
     try {
-        newClient.connect((err) => {
-            if (err) {
-                throw err;
-            } else {
-                console.log("Connection successful.")
-            }
-        });
-
-        await newClient.query(("INSERT INTO products (name, description, category, category_id, price) VALUES ($1, $2, $3, $4, $5)"), [name, description, category, categoryID, price]);
+        await client.query("BEGIN");
+        await client.query(input, [name, description, category, categoryID, price]);
+        await client.query("COMMIT");
         res.sendStatus(204);
     } catch(e) {
-        console.log(e);
+        await client.query("ROLLBACK");
+        throw new Error(e);
     } finally {
-        await newClient.end()
+        await client.release()
         .then(console.log("Client disconnected."));
     }
 });
