@@ -6,13 +6,13 @@ module.exports = (app) => {
     app.use(passport.initialize());
     app.use(passport.session());
 
-    passport.serializeUser((user, done) => {
-        done(null, user.id);
-    });
+    // passport.serializeUser((user, done) => {
+    //     done(null, user.id);
+    // });
 
-    passport.deserializeUser((id, done) => {
-        done(null, { id });
-    });
+    // passport.deserializeUser((id, done) => {
+    //     done(null, { id });
+    // });
 
     /***
     ** TO DO: FINISH CONFIGURING LOCAL STRATEGY
