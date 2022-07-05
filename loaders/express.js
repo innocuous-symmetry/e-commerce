@@ -22,6 +22,7 @@ module.exports = (app) => {
         store: new (require('connect-pg-simple')(session))({
             conString: process.env.CONNECTION,
             createTableIfMissing: true,
+            pruneSessionInterval: 60 * 30
         })
     }));
 }
