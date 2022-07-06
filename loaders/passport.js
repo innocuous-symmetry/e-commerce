@@ -20,7 +20,7 @@ module.exports = (app) => {
 
     passport.use(new LocalStrategy(async (email, password, done) => {
         try {
-            const response = await LoginService(email, password);
+            const response = await LoginService({ email: email, password: password });
             return done(null, response);
         } catch(e) {
             return done(e);

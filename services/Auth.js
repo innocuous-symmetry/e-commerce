@@ -30,10 +30,7 @@ async function LoginService(email, password) {
                 userProfile: fullUserProfile.rows[0]
             }
         } else {
-            return {
-                session: 'not found',
-                userProfile: 'not found'
-            }
+            throw new Error("Auth unsuccessful.");
         }
     } catch(e) {
         await client.query("ROLLBACK");
