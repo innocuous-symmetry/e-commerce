@@ -1,8 +1,9 @@
 const { connect } = require('../db/Pool');
 const bcrypt = require('bcrypt');
 
-async function LoginService(email, password) {
+async function LoginService(email, password) { 
     const client = await connect();
+    let session;
 
     try {
         let hash = await client.query("SELECT password FROM users WHERE email = ($1)", [email]);
@@ -12,14 +13,26 @@ async function LoginService(email, password) {
 
         if (!match) res.status(403).json({ msg: "Login unsuccessful. Please try again" });
         if (match) {
-            req.session.authenticated = true;
-            req.session.user = { email: email, password: password }
+            session = {
+                authenticated: true,
+                user: {
+                    email: email,
+                    password: password
+                }
+            }
+            // req.session.authenticated = true;
+            // req.session.user = { email: email, password: password }
 
             let fullUserProfile = await client.query("SELECT * FROM users WHERE email = ($1)", [email]);
 
             return {
-                session: req.session,
+                session: session,
                 userProfile: fullUserProfile.rows[0]
+            }
+        } else {
+            return {
+                session: 'not found',
+                userProfile: 'not found'
             }
         }
     } catch(e) {
