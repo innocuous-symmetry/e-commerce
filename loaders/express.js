@@ -14,7 +14,7 @@ module.exports = (app) => {
     app.use(session({
         secret: process.env.EXPRESS_SECRET,
         cookie: { maxAge: 8 * 60 * 60 * 1000, secure: false },
-        resave: false,
+        resave: true,
         saveUninitialized: true,
         store: new (require('connect-pg-simple')(session))({
             pool: pool,
