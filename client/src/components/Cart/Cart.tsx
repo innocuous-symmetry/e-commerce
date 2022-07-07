@@ -12,62 +12,26 @@ function Cart() {
     const [data, setData] = useState<any>();
     const [subtotal, setSubtotal] = useState('loading...');
 
-    // on mount
-    useEffect(() => {
-        if (!state) return;
-        dispatch({ type: ActionType.UPDATESUBTOTAL, payload: getSubtotal(data) });
-    }, []);
-
-    useEffect(() => {
-        console.log(state.cart);
-        setSubtotal(state.cart.subtotal);
-    }, [state.cart.subtotal]);
-
-    useEffect(() => {
-        if (!state.cart.contents) return;
-
-        let newProducts: Array<Product> = [];
-        for (let item of state.cart.contents) {
-            const withQuantity = {
-                ...item,
-                quantity: 1
-            }
-            const foundItem = newProducts.findIndex((res) => res.name === item.name);
-            if (foundItem === -1) {
-                newProducts.push(withQuantity);
-            } else {
-                // @ts-ignore
-                newProducts[foundItem].quantity += 1;
-            }
-        }
-
-        for (let item of newProducts) {
-            if (typeof item.quantity !== 'number') {
-                throw new Error("Quantity is possibly undefined in Cart.tsx");
-            }
-            item.quantity = item.quantity / 2;
-        }
-
-        setData(newProducts);
-    }, [state]);
-
-    const updateQuantity = useCallback((product: Product, newQuantity: number) => {
-        const updated = product;
-        updated.quantity = newQuantity;
-    }, []);
-
     return (
         <Page>
         {
         state.user.firstName ?
-
             <h1>Hello, {state.user.firstName}!</h1>
         :
-            <h1>Your cart is empty! Please <a href='/login'>log in</a> to build your own.</h1>
+            <h1>Please <a href='/login'>log in</a> to start your cart.</h1>
         }
 
         <section id="cart-contents">
-            { data && data.map((product: Product) => <CartItem key={v4()} updateQuantity={updateQuantity} product={product} />) }
+            { state.cart && 
+
+            <>
+            <p>You have {state.cart.contents.length} items in your cart!</p>
+            <div>
+                {state.cart.contents.map((product: Product) => <CartItem key={v4()} product={product} />)}
+            </div>
+            </>
+
+            }
         </section>
 
         <section id="subtotal">

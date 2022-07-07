@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { v4 } from "uuid";
 
-function CartItem({ product, updateQuantity }: any) {
+function CartItem({ product }: any) {
     const [quantity, setQuantity] = useState(product.quantity || 0);
 
-    useEffect(() => {
-        updateQuantity(product, quantity);
-    }, [quantity]);
+    // useEffect(() => {
+    //     updateQuantity(product, quantity);
+    // }, [quantity]);
 
     return (
         <div className="cart-item-panel">
