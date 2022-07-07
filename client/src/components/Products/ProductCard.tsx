@@ -1,12 +1,16 @@
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { addToCart } from "../../util/helpers";
+import { ActionType } from "../../store/store_types";
 import { AppContext } from "../../store/store";
 
 export default function ProductCard({ productData }: any) {
     const { name, category, description, price, id } = productData;
     const [state, dispatch] = useContext(AppContext);
     const navigate = useNavigate();
+
+    const addToCart = () => {
+        dispatch({ type: ActionType.ADDTOCART, payload: productData });
+    }
 
     return (
         <div className="card product-card" key={`product-id-${id}`}>
@@ -20,7 +24,7 @@ export default function ProductCard({ productData }: any) {
 
                 {
                 state.user.headers && state.user.headers.authenticated ?
-                <button onClick={() => addToCart(productData, dispatch)}>Add to Cart</button>
+                <button onClick={addToCart}>Add to Cart</button>
                 :
                 <button onClick={() => navigate('/login')}>Login to add to your cart</button>
                 }

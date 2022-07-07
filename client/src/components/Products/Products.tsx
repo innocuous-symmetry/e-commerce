@@ -24,9 +24,8 @@ function Products() {
 
     useEffect(() => {
         if (!productData) return;
-        console.log(productData);
 
-        let results = productData.map((each: ProductResponse) => {
+        const results = productData.map((each: ProductResponse) => {
             return <ProductCard key={each.id} productData={each} />
         });
 

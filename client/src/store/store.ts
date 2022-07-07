@@ -29,16 +29,31 @@ export const reducer = (state: appState, action: userAction) => {
                 user: payload
             }
         case ActionType.ADDTOCART:
-            let updatedContents = state.cart.contents;
-            console.log(action.payload);
-            updatedContents.push(action.payload);
-
-            return {
-                ...state,
-                cart: {
-                    ...state.cart,
-                    contents: updatedContents
+            let foundItem = state.cart.contents.find(item => item.id === action.payload.id);
+            if (!foundItem) {
+                let updatedContents = state.cart.contents;
+                updatedContents.push(action.payload);
+                return {
+                    ...state,
+                    cart: {
+                        ...state.cart,
+                        contents: updatedContents
+                    }
                 }
+            } else {
+                let updatedState = state;
+                let updatedItem = foundItem;
+
+                if (updatedItem.quantity) {
+                    updatedItem.quantity += 1;
+                } else {
+                    updatedItem.quantity = 2;
+                }
+
+                updatedState.cart.contents = updatedState.cart.contents.filter(item => item.id !== action.payload.id);
+                updatedState.cart.contents.push(updatedItem);
+
+                return updatedState;
             }
         case ActionType.UPDATESUBTOTAL:
             return {

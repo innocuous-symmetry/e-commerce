@@ -1,4 +1,5 @@
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
+import { v4 } from "uuid";
 import { AppContext } from "../../store/store";
 import { ActionType } from "../../store/store_types";
 import { Product } from '../../types/main';
@@ -8,8 +9,19 @@ import CartItem from "./CartItem";
 
 function Cart() {
     const [state, dispatch] = useContext(AppContext);
-    const [contents, setContents] = useState<JSX.Element>();
     const [data, setData] = useState<any>();
+    const [subtotal, setSubtotal] = useState('loading...');
+
+    // on mount
+    useEffect(() => {
+        if (!state) return;
+        dispatch({ type: ActionType.UPDATESUBTOTAL, payload: getSubtotal(data) });
+    }, []);
+
+    useEffect(() => {
+        console.log(state.cart);
+        setSubtotal(state.cart.subtotal);
+    }, [state.cart.subtotal]);
 
     useEffect(() => {
         if (!state.cart.contents) return;
@@ -39,15 +51,10 @@ function Cart() {
         setData(newProducts);
     }, [state]);
 
-    /**
-     * PROBLEMATIC USEEFFECT BELOW
-     * LOOP BEHAVIOR ON DISPATCH
-     */
-    
-    useEffect(() => {
-        let subtotal = getSubtotal(data);
-        subtotal && dispatch({ type: ActionType.UPDATESUBTOTAL, payload: subtotal });
-    }, [data, getSubtotal]);
+    const updateQuantity = useCallback((product: Product, newQuantity: number) => {
+        const updated = product;
+        updated.quantity = newQuantity;
+    }, []);
 
     return (
         <Page>
@@ -60,12 +67,11 @@ function Cart() {
         }
 
         <section id="cart-contents">
-            { data && data.map((product: Product) => <CartItem product={product} />) }
+            { data && data.map((product: Product) => <CartItem key={v4()} updateQuantity={updateQuantity} product={product} />) }
         </section>
 
         <section id="subtotal">
-            <p>Subtotal:</p>
-            <p>{state.cart.subtotal || "Not found"}</p>
+            <p>Subtotal: {subtotal}</p>
         </section>
         </Page>
     )

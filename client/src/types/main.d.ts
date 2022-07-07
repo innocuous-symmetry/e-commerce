@@ -28,6 +28,7 @@ export type Product = {
     category?: string
     price?: string | number,
     // when item is included in cart
+    id?: number,
     quantity?: number,
     shortDescription?: string,
     longDescription?: string,

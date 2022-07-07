@@ -23,13 +23,11 @@ function NavBar() {
         if (state === initialState) return;
 
         if (state.user && state.user.headers?.authenticated) {
-            console.log('authenticated!');
             setProfText(state.user.email);
             setLoggedIn(true);
         } else if (!state.user.authenticated) {
             setLoggedIn(false);
         }
-
     }, [state]);
 
     return (
