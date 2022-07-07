@@ -4,10 +4,20 @@ const { LoginService } = require('../services/Auth');
 module.exports = (app, passport) => {
     app.use('/api/login', loginRouter);
 
-    app.use('/api/login', passport.authenticate('local'));
+    // loginRouter.post('/', (req, res) =>
+    //     passport.authenticate('local', { successRedirect: '/', failureRedirect: '/login' })
+    //     (req, res => {
+    //         try {
+    //             const data = LoginService(email, password);
+    //             const { session, userProfile } = data;
+    //             res.status(200).send({ session, userProfile });
+    //         } catch(e) {
+    //             next(e);
+    //         }
+    //     }
+    // ));
 
     loginRouter.post('/', async (req, res, next) => {
-        console.log('login called');
         const { email, password } = req.body;
 
         /**
@@ -24,7 +34,6 @@ module.exports = (app, passport) => {
         try {
             const data = await LoginService(email, password);
             const { session, userProfile } = data;
-
             res.status(200).send({ session, userProfile });
         } catch(e) {
             next(e);

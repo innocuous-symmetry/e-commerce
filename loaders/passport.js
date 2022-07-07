@@ -7,18 +7,22 @@ module.exports = (app) => {
     app.use(passport.session());
 
     passport.serializeUser((user, done) => {
-        done(null, user.id);
+        process.nextTick(() => {
+            done(null, user.id);
+        })
     });
 
-    passport.deserializeUser((id, done) => {
-        done(null, { id });
+    passport.deserializeUser((user, done) => {
+        process.nextTick(async () => {
+            const user = await LoginService({ email: user.email, password: user.password });
+            return (user) ? done(null, user) : done(null, false);
+        })
     });
 
-    /***
-    ** TO DO: FINISH CONFIGURING LOCAL STRATEGY
-    ***/
-
-    passport.use(new LocalStrategy(async (email, password, done) => {
+    passport.use(new LocalStrategy({
+        usernameField: 'email',
+        passwordField: 'password'
+    }, async (email, password, done) => {
         try {
             const response = await LoginService({ email: email, password: password });
             return done(null, response);
