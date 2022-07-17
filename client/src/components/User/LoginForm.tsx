@@ -23,8 +23,9 @@ function LoginForm() {
         try {
             const response = await handleLogin(username, password);
             const json = await response?.json();
-    
+
             if (json) {
+                console.log(json);
                 const { session, userProfile } = json;
                 let thisUser: userInfo = {
                     firstName: userProfile.first_name,

@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 async function LoginService(email, password) { 
     const client = await connect();
     let session;
+    console.log('login service');
 
     try {
         let hash = await client.query("SELECT password FROM users WHERE email = ($1)", [email]);
@@ -24,6 +25,8 @@ async function LoginService(email, password) {
             // req.session.user = { email: email, password: password }
 
             let fullUserProfile = await client.query("SELECT * FROM users WHERE email = ($1)", [email]);
+
+            console.log({session, userProfile: fullUserProfile.rows[0]});
 
             return {
                 session: session,
