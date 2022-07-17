@@ -8,13 +8,13 @@ module.exports = (app) => {
 
     passport.serializeUser((user, done) => {
         process.nextTick(() => {
-            done(null, user.id);
+            done(null, user);
         })
     });
 
     passport.deserializeUser((user, done) => {
         process.nextTick(async () => {
-            const user = await LoginService({ email: user.email, password: user.password });
+            const user = await LoginService(user.email, user.password);
             return (user) ? done(null, user) : done(null, false);
         })
     });
@@ -26,7 +26,7 @@ module.exports = (app) => {
         },
         async (email, password, done) => {
         try {
-            const response = await LoginService({ email: email, password: password });
+            const response = await LoginService(email, password);
             return done(null, response);
         } catch(e) {
             return done(e);

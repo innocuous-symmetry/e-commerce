@@ -26,8 +26,6 @@ async function LoginService(email, password) {
 
             let fullUserProfile = await client.query("SELECT * FROM users WHERE email = ($1)", [email]);
 
-            console.log({session, userProfile: fullUserProfile.rows[0]});
-
             return {
                 session: session,
                 userProfile: fullUserProfile.rows[0]

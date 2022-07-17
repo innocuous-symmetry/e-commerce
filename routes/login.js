@@ -8,6 +8,7 @@ module.exports = (app, passport) => {
 
             /**
              * @function LoginService
+             * @params email: string, password: string
              * @returns: object, with keys:
              * session: session object
              * userProfile: postgres response from query
@@ -28,17 +29,4 @@ module.exports = (app, passport) => {
             }
         })
     );
-
-    // loginRouter.post('/', (req, res) =>
-    //     passport.authenticate('local', { successRedirect: '/', failureRedirect: '/login' })
-    //     (req, res => {
-    //         try {
-    //             const data = LoginService(email, password);
-    //             const { session, userProfile } = data;
-    //             res.status(200).send({ session, userProfile });
-    //         } catch(e) {
-    //             next(e);
-    //         }
-    //     }
-    // ));   
 }
