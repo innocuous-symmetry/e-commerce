@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js",
-    "seed": "cd db && node Seed.js"
+    "seed": "cd db && node seed.js"
   },
   "engines": {
     "node": "v16.13.1"

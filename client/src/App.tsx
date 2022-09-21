@@ -12,6 +12,7 @@ import ProductPage from './components/Products/ProductPage';
 import Cart from './components/Cart/Cart';
 
 import './App.scss'
+import AdminHome from './components/AdminPortal/AdminHome';
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -29,6 +30,8 @@ function App() {
             <Route path="/products/" element={<Products />} />
             <Route path="/cart/" element={<Cart />} />
             <Route path="/products/:productID" element={<ProductPage />} />
+
+            <Route path="/admin" element={<AdminHome />} />
           </Routes>
         </AppContext.Provider>
     </BrowserRouter>

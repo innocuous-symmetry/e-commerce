@@ -37,7 +37,8 @@ require('dotenv').config({ path: "../.env" });
         CREATE TABLE IF NOT EXISTS category (
             id                  INT             PRIMARY KEY GENERATED ALWAYS AS IDENTITY NOT NULL,
             name                VARCHAR         NOT NULL,
-            description         VARCHAR         NOT NULL
+            description         VARCHAR         NOT NULL,
+            is_product_subset   BOOLEAN         NOT NULL
         );
     `;
 
@@ -63,6 +64,8 @@ require('dotenv').config({ path: "../.env" });
     let status;
 
     try {
+        await client.query("DROP SCHEMA public CASCADE; CREATE SCHEMA public;");
+
         for (let q of allQueries) {
             await client.query(q);
         }
