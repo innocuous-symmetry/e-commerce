@@ -1,3 +1,10 @@
+/**
+ * IMPORTANT:
+ * THIS VERSION OF THE AUTH SERVICE IS DEPRECATED
+ * THESE SERVICES WILL BE MIGRATED TO AuthService.js
+ * WITHIN THE SAME DIRECTORY
+**/
+
 const { connect } = require('../db/Pool');
 const bcrypt = require('bcrypt');
 
