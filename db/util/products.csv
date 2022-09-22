@@ -1,0 +1,51 @@
+﻿id,name,regionId,categoryId
+1,Allspice - Whole,8,1
+2,Cocoa Powder,1,1
+3,Cardamom - Green,3,1
+4,Cardamom - Black,4,1
+5,Cinnamon,2,1
+6,Cloves,1,1
+7,Fenugreek Seed,4,1
+8,Lavender Flowers,3,2
+9,Nutmeg,8,1
+10,Star Anise,2,1
+11,Vanilla Bean - Madagascar,1,1
+12,Vanilla Bean - Mexico,5,1
+13,Vanilla Paste,8,1
+14,Ancho Chile,5,3
+15,Cayenne - African,1,3
+16,Cayenne - Indian,4,3
+17,Chipotle Chile,5,3
+18,Ghost Chile,4,3
+19,Guajillo Chile,5,3
+20,Paprika - Hungarian,3,3
+21,Paprika - Spain,3,3
+22,Piment d'Esplette,3,3
+23,Thai Chile,2,3
+24,Basil,1,2
+25,Bay Leaf - California,7,2
+26,Bay Leaf - Turkish,3,2
+27,Chives,7,2
+28,Dill Weed,7,2
+29,Fenugreek Leaf,4,2
+30,Herbes de Provence,3,2
+31,Lemongrass,2,2
+32,Marjoram,1,2
+33,Oregano - Mexican,5,2
+34,Oregano - Turkish,3,2
+35,Parsley,7,2
+36,Peppermint,7,2
+37,Rosemary,3,2
+38,Sage,3,2
+39,Tarragon,3,2
+40,Fleur de Sel,3,4
+41,Grains of Paradise,1,4
+42,Himalayan Pink Salt,2,4
+43,Long Pepper,2,4
+44,Maldon Flake Sea Salt,3,4
+45,Peppercorn - Black,4,4
+46,Peppercorn - Green,4,4
+47,Peppercorn - Pink,8,4
+48,Peppercorn - Red,2,4
+49,Peppercorn - White,2,4
+50,Pepper - Szechuan,2,4
