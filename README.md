@@ -1,17 +1,8 @@
-# Mikayla's Little E-Commerce Store
-A sample E-Commerce app built for a Codecademy portfolio project!
+# Mikayla's Spice Market
 
-This project will be fully featured, with payment processing through Stripe, session support with Express, and a full REST API build in Express/Postgres.
-The front end is built in React using TypeScript and Sass, and bootstrapped with Vite.
+Thanks for checking out *Express Spices*, my from-the-ground-up e-commerce solution for buying spices! The product catalog for this store is modeled after [World Spice Merchants](https://www.worldspice.com/), sorted into categories by geographical regions.
 
-The API will be fully documented using Swagger, and available at the following link: [link]
-
-## Project Structure
-The project directory is organized as follows:
-- ``client``: holds the front end details of the project
-- ``db``: this hosts database logic for Node-Postgres interactions
-- ``routes``: this hosts the Express router which powers the project's REST API
-- ``server.js``: the backend "entryway" for the application, which hosts the server and the integration for the API.
+Payment information is supported through the Stripe API, with session support and user management with Express Sessions. The backend features a full REST API built in Express, connects to a PostgreSQL database, and is documented with Swagger. The app features a frontend built with React, TypeScript, and Sass.
 
 ## Installing and Running the Development Build Locally
 1. Clone the project repository from the root level.
