@@ -1,8 +1,7 @@
-import psycopg2
-import csv
-import os
 from insert_file_contents import insert_file_contents
+import psycopg2
 from psycopg2 import sql
+import os
 
 # read data from environment if present
 env_path = "../../.env"
@@ -28,8 +27,8 @@ conn = psycopg2.connect("dbname=e-commerce-092122 user=mikayladobson")
 cur = conn.cursor()
 
 # read contents of each file into postgres
-insert_file_contents(conn, cur, "./data/categories.csv", 'category', 1)
-insert_file_contents(conn, cur, "./data/regions.csv", 'region', 1)
-insert_file_contents(conn, cur, "./data/products.csv", 'product', 3)
+insert_file_contents(conn, cur, "./data/categories.csv", 'category')
+insert_file_contents(conn, cur, "./data/regions.csv", 'region')
+insert_file_contents(conn, cur, "./data/products.csv", 'product')
 
 print("Database insertions executed successfully.")

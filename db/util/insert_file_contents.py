@@ -1,33 +1,30 @@
 import csv
+from re import M
 from psycopg2 import sql
 
 # function to read from a given csv file into postgres
-def insert_file_contents(conn, cur, file_path, table_name, column_count):
+def insert_file_contents(conn, cur, file_path, table_name):
     with open(file_path, 'r', encoding='utf-8-sig') as f:
         reader = csv.reader(f)
-        header_names = ""
         first_row_accessed = False
+        header_names = ""
+        num_columns = 0
 
         for row in reader:
             # get row values from first row of reader
             if not first_row_accessed:
                 header_names = [item for item in row]
+                num_columns = len(header_names)
                 first_row_accessed = True
                 continue
 
-            # execute table insertion for each row of csv based on number of columns
-            if column_count == 3:
-                cur.execute(sql.SQL("INSERT INTO {table} ({h1}, {h2}, {h3}) VALUES (%s, %s, %s)".format(
-                        table=table_name,
-                        h1=header_names[0],
-                        h2=header_names[1],
-                        h3=header_names[2]
-                    )),
-                    row
-                )
-            elif column_count == 1:
-                cur.execute(sql.SQL("INSERT INTO {table} ({field}) VALUES (%s)".format(table=table_name, field=header_names[0])), row)
-            else:
-                raise
+            mapped_columns = [header_names[i] for i in range(num_columns)]
+            prepared_q = sql.SQL("INSERT INTO {TABLE} ({COLS}) VALUES ({VALS})").format(
+                TABLE=sql.Identifier(table_name),
+                COLS=sql.SQL(', ').join(map(sql.Identifier, mapped_columns)),
+                VALS=sql.SQL(', ').join(sql.Placeholder() * len(mapped_columns))
+            )
+            
+            cur.execute(prepared_q, [item for item in row])
 
     conn.commit()
