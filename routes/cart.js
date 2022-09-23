@@ -1,8 +1,28 @@
-const express = require('express');
-const cartRouter = express.Router();
+const router = require('express').Router();
+const CartService = require('../services/CartService');
+const CartServiceInstance = new CartService();
 
-cartRouter.route('/cart').get((req, res) => {
-    res.send('get cart');
-});
+module.exports = (app) => {
+    app.use('/api/cart', router);
 
-module.exports = cartRouter;
+    router.post('/:userId', async (req, res, next) => {
+        const { userId } = req.params;
+
+        try {
+            const response = await CartServiceInstance.getCart(userId);
+            res.status(200).send(response);
+        } catch(e) {
+            next(e);
+        }
+    })
+
+    router.put('/:userId', async (req, res, next) => {
+        const { userId, data } = req.params;
+
+        try {
+
+        } catch(e) {
+            next(e);
+        }
+    })
+}
