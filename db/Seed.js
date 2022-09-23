@@ -20,7 +20,7 @@ async function main() {
     const createCartTable = `
         CREATE TABLE IF NOT EXISTS cart (
             id                  INT             PRIMARY KEY GENERATED ALWAYS AS IDENTITY NOT NULL,
-            appUserId           INT             REFERENCES users(id),
+            appUserId           INT             REFERENCES users(id)
         );
     `;
 
@@ -49,7 +49,7 @@ async function main() {
         CREATE TABLE IF NOT EXISTS category (
             id                  INT             PRIMARY KEY GENERATED ALWAYS AS IDENTITY NOT NULL,
             name                VARCHAR         NOT NULL,
-            description         VARCHAR         NOT NULL
+            description         VARCHAR
         );
     `;
 
@@ -58,10 +58,10 @@ async function main() {
         CREATE TABLE IF NOT EXISTS product (
             id                  INT             PRIMARY KEY GENERATED ALWAYS AS IDENTITY NOT NULL,
             name                VARCHAR         NOT NULL,
-            description         VARCHAR         NOT NULL,
+            description         VARCHAR,
             categoryId          INT             REFERENCES category(id),
             regionId            INT             REFERENCES region(id),
-            price               NUMERIC         NOT NULL
+            price               NUMERIC
         );
     `;
 
@@ -87,8 +87,8 @@ async function main() {
     let status;
 
     try {
-        await client.query("DROP SCHEMA public CASCADE; CREATE SCHEMA public;");
-
+        await client.query("DROP SCHEMA public CASCADE; CREATE SCHEMA public");
+        
         for (let q of allQueries) {
             await client.query(q);
         }
@@ -97,6 +97,10 @@ async function main() {
         status = "Database setup successful!";
     } catch(e) {
         status = e;
+    } finally {
+        if (status !== "Database setup successful!") {
+            throw new Error(status);
+        }
     }
 
     console.log(status);
