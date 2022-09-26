@@ -1,5 +1,4 @@
 import csv
-from re import M
 from psycopg2 import sql
 
 # function to read from a given csv file into postgres

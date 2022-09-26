@@ -1,6 +1,5 @@
 from insert_file_contents import insert_file_contents
 import psycopg2
-from psycopg2 import sql
 import os
 
 # read data from environment if present
@@ -26,9 +25,12 @@ os.close(fd)
 conn = psycopg2.connect("dbname=e-commerce-092122 user=mikayladobson")
 cur = conn.cursor()
 
+print("Now attempting to populate database...")
+
 # read contents of each file into postgres
 insert_file_contents(conn, cur, "./data/categories.csv", 'category')
 insert_file_contents(conn, cur, "./data/regions.csv", 'region')
 insert_file_contents(conn, cur, "./data/products.csv", 'product')
 
-print("Database insertions executed successfully.")
+print("Insertions executed successfully.")
+print("Database preparations complete!")

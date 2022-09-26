@@ -6,8 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js",
-    "seed": "cd db && node seed.js",
-    "populate": "cd db/util && python3 main.py"
+    "seed": "cd db && node seed.js && cd util && python3 main.py"
   },
   "engines": {
     "node": "v16.13.1"

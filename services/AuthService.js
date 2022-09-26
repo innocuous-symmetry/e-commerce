@@ -36,10 +36,5 @@ module.exports = class AuthService {
         }
     }
 
-    // yet to be implemented
-    async deleteOne(data) {
-        return data;
-    }
-
     // TO IMPLEMENT: google, facebook passport strategies
 }

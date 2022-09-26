@@ -2,8 +2,10 @@ const { Client } = require('pg');
 require('dotenv').config({ path: "../.env" });
 
 async function main() {
+    console.log("Beginning database setup.");
+
     const client = new Client({ connectionString: process.env.CONNECTION });
-    await client.connect().then(console.log("Connection successful."));
+    await client.connect().then(console.log("Now connected to postgres"));
 
     // user
     const createUserTable = `
@@ -11,8 +13,8 @@ async function main() {
             id                  INT             PRIMARY KEY GENERATED ALWAYS AS IDENTITY NOT NULL,
             email               VARCHAR         NOT NULL,
             password            VARCHAR         NOT NULL,
-            firstname           VARCHAR         NOT NULL,
-            lastname            VARCHAR         NOT NULL
+            firstname           VARCHAR,
+            lastname            VARCHAR
         );
     `;
 
@@ -29,7 +31,7 @@ async function main() {
         CREATE TABLE IF NOT EXISTS orders (
             id                  INT             PRIMARY KEY GENERATED ALWAYS AS IDENTITY NOT NULL,
             userId              INT             REFERENCES users(id),
-            total               NUMERIC         NOT NULL,
+            total               NUMERIC,
             delivered           BOOLEAN,
             processed           BOOLEAN,
             shipped             BOOLEAN
@@ -61,7 +63,8 @@ async function main() {
             description         VARCHAR,
             categoryId          INT             REFERENCES category(id),
             regionId            INT             REFERENCES region(id),
-            price               NUMERIC
+            price               NUMERIC,
+            inventory           INT
         );
     `;
 
@@ -69,7 +72,8 @@ async function main() {
     const createProductsCarts = `
         CREATE TABLE IF NOT EXISTS products_carts (
             productId           INT             REFERENCES product(id),
-            cartId              INT             REFERENCES cart(id)
+            cartId              INT             REFERENCES cart(id),
+            quantity            INT
         );
     `;
 
@@ -94,11 +98,11 @@ async function main() {
         }
 
         await client.end();
-        status = "Database setup successful!";
+        status = "Database initialization successful.";
     } catch(e) {
         status = e;
     } finally {
-        if (status !== "Database setup successful!") {
+        if (status !== "Database initialization successful.") {
             throw new Error(status);
         }
     }
