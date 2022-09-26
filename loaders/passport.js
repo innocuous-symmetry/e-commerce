@@ -16,8 +16,8 @@ module.exports = async (app) => {
 
     passport.deserializeUser((user, done) => {
         process.nextTick(async () => {
-            const user = await LoginService(user.email, user.password);
-            return (user) ? done(null, user) : done(null, false);
+            const foundUser = await AuthInstance.login(user);
+            return foundUser ? done(null, foundUser) : done(null, false);
         })
     });
 

@@ -1,10 +1,10 @@
 const authRouter = require('./auth');
 const userRouter = require('./user');
 const productRouter = require('./product');
-const orderRouter = require('./order');
+const orderRouter = require('./orders');
 const cartRouter = require('./cart');
 
-module.exports = async (app, passport) => {
+module.exports = (app, passport) => {
     authRouter(app, passport);
     userRouter(app);
     productRouter(app);

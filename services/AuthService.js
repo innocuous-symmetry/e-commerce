@@ -5,15 +5,26 @@ const UserInstance = new UserModel();
 
 module.exports = class AuthService {
     async register(data) {
-        const { email } = data;
+        const { email, password } = data;
 
         try {
-            const user = await UserInstance.findOneById(email);
-            if (user) {
-                throw createError(409, 'Email already in use');
-            }
+            const user = await UserInstance.findOneByEmail(email);
+            if (user) throw createError(409, 'Email already in use');
 
-            return await UserInstance.create(data);
+            const response = bcrypt.genSalt(10, (err, salt) => {
+                if (err) throw err;
+                bcrypt.hash(password, salt, (err, hash) => {
+                    if (err) throw err;
+                    const newData = {
+                        email: email,
+                        password: hash
+                    }
+
+                    return UserInstance.create(newData);
+                })
+            })
+
+            return response;
         } catch(e) {
             throw new Error(e);
         }
@@ -26,9 +37,15 @@ module.exports = class AuthService {
         try {
             const user = await UserInstance.findOneByEmail(email);
             if (!user) throw createError(401, 'Incorrect email or password');
+            // const match = bcrypt.compare(user.password, password, (result, err) => {
+            //     if (err) throw err;
+            //     return result;
+            // })
 
-            const match = await bcrypt.compare(user.password, password);
-            if (!match) throw createError(401, 'Incorrect email or password');
+            // console.log(match);
+            // if (!match) throw createError(401, 'Incorrect email or password');
+
+            console.log(user.password);
 
             return user;
         } catch(e) {
