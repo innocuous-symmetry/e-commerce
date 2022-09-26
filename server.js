@@ -5,7 +5,7 @@ const PORT = process.env.PORT || 8088;
 
 async function start() {
     const app = express();
-    loaders(app);
+    await loaders(app);
     
     app.listen(PORT, () => {
         console.log(`Listening on port ${PORT}`);

@@ -19,7 +19,7 @@ module.exports = class CartService {
 
     async addItem(userid, item) {
         const cart = await CartInstance.findOneByUserId(userid);
-        const item = await CartProductInstance.create(item);
+        const newItem = await CartProductInstance.create(item);
     }
 
     async removeItem(userid, item) {
