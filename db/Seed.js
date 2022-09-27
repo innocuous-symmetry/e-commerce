@@ -15,7 +15,7 @@ async function main() {
             password            VARCHAR         NOT NULL,
             firstname           VARCHAR,
             lastname            VARCHAR,
-            isAdmin             BOOLEAN         DEFAULT FALSE
+            isadmin             BOOLEAN         DEFAULT FALSE
         );
     `;
 
@@ -23,7 +23,7 @@ async function main() {
     const createCartTable = `
         CREATE TABLE IF NOT EXISTS cart (
             id                  INT             PRIMARY KEY GENERATED ALWAYS AS IDENTITY NOT NULL,
-            appUserId           INT             REFERENCES users(id)
+            userid              INT             REFERENCES users(id)
         );
     `;
 

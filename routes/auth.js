@@ -5,14 +5,6 @@ const router = require('express').Router();
 module.exports = (app, passport) => {
     app.use('/api/auth', router);
 
-    router.get('/', async (req, res, next) => {
-        try {
-            res.send('auth get response');
-        } catch(e) {
-            next(e);
-        }
-    })
-
     router.post('/register', async (req, res, next) => {
         try {
             const data = req.body;

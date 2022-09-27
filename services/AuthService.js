@@ -16,7 +16,7 @@ module.exports = class AuthService {
                 bcrypt.hash(password, salt, (err, hash) => {
                     if (err) throw err;
                     const newData = {
-                        email: email,
+                        ...data,
                         password: hash
                     }
 
