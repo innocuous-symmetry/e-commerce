@@ -1,0 +1,84 @@
+openapi: 3.0.0
+
+info:
+  description: "Codecademy e-commerce REST API"
+  version: "1.0.0"
+  title: "E-commerce REST API"
+
+schemes: 
+  - http
+
+host: localhost:4000
+
+basePath: "/"
+
+tags:
+  - name: auth
+    description: "Handles user authentication workflows, including login and new user registration."
+  - name: cart
+    description: "Records for open 'cart' registries associated with user accounts"
+  - name: orders
+    description: "Carts become orders once payment has been processed. These orders are tracked here through their lifecycle, from order placement to delivery."
+  - name: product
+    description: "Records for each product in the store's registry, as well as associated data pertaining to pricing, inventory, etc."
+  - name: user
+    description: "Records for each user of the site, including relations to auth workflows, carts, and orders."
+
+paths:
+  /auth/register:
+    post:
+      summary: "New user registration"
+      description: "New user registration"
+      tags:
+        - auth
+      produces:
+        - "application/json"
+      responses:
+        200:
+          description: 200 Success
+          schema:
+            type: object
+  /auth/login:
+    post:
+      summary: "Login and get user account info"
+      tags:
+        - auth
+  /cart/{userid}:
+    get:
+      summary: "Get the contents of a given user's cart"
+      tags:
+        - cart
+    put:
+      summary: "Update a given user's cart"
+      tags:
+        - cart
+  /orders:
+    get:
+      summary: "Get all records of all orders"
+      tags:
+        - orders
+  /orders/{orderid}:
+    get:
+      summary: "Get one order by its order ID"
+      tags:
+        - orders
+  /product:
+    get:
+      summary: "Get all product listings"
+      tags:
+        - product
+  /product/{productid}:
+    get:
+      summary: "Get one product listing by its product ID"
+      tags:
+        - product
+  /user:
+    get:
+      summary: "Get all users"
+      tags:
+        - user
+  /user/{userid}:
+    get:
+      summary: "Get one user by a given user ID"
+      tags:
+        - user
