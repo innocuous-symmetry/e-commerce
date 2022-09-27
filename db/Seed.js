@@ -14,7 +14,8 @@ async function main() {
             email               VARCHAR         NOT NULL,
             password            VARCHAR         NOT NULL,
             firstname           VARCHAR,
-            lastname            VARCHAR
+            lastname            VARCHAR,
+            isAdmin             BOOLEAN         DEFAULT FALSE
         );
     `;
 

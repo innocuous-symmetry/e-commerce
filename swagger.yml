@@ -9,7 +9,7 @@ schemes:
   - http
 
 servers:
-- url: localhost:8088
+- url: localhost:8088/api
   description: The URL which currently hosts the REST API
 
 host: localhost:4000
@@ -31,6 +31,45 @@ components:
           type: string
         lastname?:
           type: string
+    Product:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description?:
+          type: string
+        categoryid:
+          type: integer
+        regionid:
+          type: integer
+        price?:
+          type: numeric
+        inventory:
+          type: integer
+    Order:
+      type: object
+      properties:
+        id:
+          type: integer
+        userid:
+          type: integer
+        total?:
+          type: numeric
+        delivered?:
+          type: boolean
+        processed?:
+          type: boolean
+        shipped?:
+          type: boolean
+    Cart:
+      type: object
+      properties:
+        id:
+          type: integer
+        userid:
+          type: integer
   securitySchemas:
     BasicAuth:
       type: http
@@ -47,6 +86,8 @@ components:
             admin: ''
 
 tags:
+  - name: admin
+    description: "Platform management tools requiring administrative access."
   - name: auth
     description: "Handles user authentication workflows, including login and new user registration."
   - name: cart
@@ -68,7 +109,7 @@ paths:
       produces:
         - "application/json"
       responses:
-        200:
+        201:
           description: "Request was successful"
           schema:
             type: object
@@ -82,20 +123,35 @@ paths:
       description: "Check the user input and, if it matches with the record in the database, login the user and open or update a user session."
       tags:
         - auth
-      produces:
-        - "application/json"
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/User'
       responses:
         200:
           description: "Successful login, returns user data from database"
-          schema:
-            $ref: '#/components/schemas/User'
         401:
           description: "Incorrect username or password"
           schema:
             type: object
+  /auth/google:
+    get:
+      summary: "Authenticate current user through Google OAuth2"
+      description: "Refers to external API verification of a user through the Google OAuth2 standard."
+      tags:
+        - auth
+      produces:
+        - "application/json"
+      responses:
+        200:
+          description: "Google OAuth2 workflow successful"
+          schema:
+            type: object
+
   /cart/{userid}:
     get:
       summary: "Get the contents of a given user's cart"
+      description: "For a given user, specified by the endpoint's {userid} parameter, get the data for this user's cart from the database."
       parameters:
         - name: userid
           in: path
@@ -110,13 +166,14 @@ paths:
         200:
           description: "Cart located successfully"
           schema:
-            type: object
+            $ref: '#/components/schemas/Cart'
         404:
           description: "Cart was not found"
           schema:
             type: object
     put:
       summary: "Update a given user's cart"
+      description: "For a given user, specified by the endpoint's {userid} parameter, update that user's cart data to match the data specified in the request body."
       parameters:
         - name: userid
           in: path
@@ -128,34 +185,197 @@ paths:
       tags:
         - cart
       responses:
-        200:
+        201:
           description: "Cart update successful"
           schema:
-            type: object
+            $ref: '#/components/schemas/Cart'
         400:
           description: "Bad request"
+          schema:
+            type: object
+    delete:
+      summmary: "Delete the record of a given cart"
+      description: "ADMIN ACCESS REQUIRED. Deletes a given cart record by its cart ID"
+      parameters:
+        - name: cartid
+          in: path
+          required: true
+          description: "The cart ID corresponding to the cart record to be deleted"
+          schema:
+            type: integer
+            minimum: 1
+      tags:
+        - admin
+      responses:
+        204:
+          description: "No content"
+          schema:
+            type: object
+        403:
+          description: "Proper authorization not provided"
+          schema:
+            type: object
+    post:
+      summary: "Insert a new cart record into the database"
+      description: "Insert a new cart record into the database. Must correspond to an extant user id"
+      tags:
+        - cart
+      responses:
+        201:
+          description: "Cart creation successful"
+          schema:
+            $ref: '#/components/schemas/Cart'
+        500:
+          descreiption: "Internal error"
           schema:
             type: object
   /orders:
     get:
       summary: "Get all records of all orders"
+      description: ''
       tags:
         - orders
+      responses:
+        200:
+          description: "Orders fetched successfully"
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Order'
+    post:
+      summary: "Post a new order record"
+      description: "Open a new record for an order, associated with a user, in its default state, with additional details specified by the request body."
+      tags:
+        - orders
+      responses:
+        201:
+          description: "Order creation successful"
+          schema:
+            $ref: '#/components/schemas/Order'
   /orders/{orderid}:
     get:
       summary: "Get one order by its order ID"
+      parameters:
+        - name: orderid
+          in: path
+          required: true
+          description: "The order ID corresponding to the record to update"
+          schema:
+            type: integer
+            minimum: 1
       tags:
         - orders
+      responses:
+        200:
+          description: "Got order successfully"
+          schema:
+            $ref: '#/components/schemas/Order'
+        404:
+          description: "Order not found"
+          schema:
+            type: object
+    delete:
+      summary: "Delete an order by its order ID"
+      description: "ADMIN ACCESS REQUIRED. Deletes a record from the database by its order ID"
+      parameters:
+        - name: orderid
+          in: path
+          required: true
+          description: "The order ID corresponding to the record to update"
+          schema:
+            type: integer
+            minimum: 1
+      tags:
+        - admin
   /product:
     get:
       summary: "Get all product listings"
+      description: "Returns all product listings in the databases"
       tags:
         - product
+      responses:
+        200:
+          description: "Got listings successfully"
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Product'
+    post:
+      summary: "Create a new product listing"
+      description: "ADMIN ACCESS REQUIRED. Create a new product listing and insert it into the database"
+      tags:
+        - admin
+      responses:
+        201:
+          description: "New product creation successful"
+          schema:
+            $ref: '#/components/schemas/Product'
+        401:
+          description: "Action unauthorized. Admin access required"
+          schema:
+            type: object
   /product/{productid}:
     get:
       summary: "Get one product listing by its product ID"
+      parameters:
+        - name: orderid
+          in: path
+          required: true
+          description: "The order ID corresponding to the record to update"
+          schema:
+            type: integer
+            minimum: 1
       tags:
         - product
+      responses:
+        200:
+          description: "Got product listing successfully"
+          schema:
+            $ref: '#/components/schemas/Product'
+    put:
+      summary: "Update a product listing by its product ID"
+      description: "ADMIN ACCESS REQUIRED. Find a record by its product ID and update its data by the request body."
+      parameters:
+        - name: orderid
+          in: path
+          required: true
+          description: "The order ID corresponding to the record to update"
+          schema:
+            type: integer
+            minimum: 1
+      tags:
+        - admin
+      responses:
+        200:
+          description: "Product listing updated successfully."
+          schema:
+            $ref: '#/components/schemas/Product'
+        401:
+          description: "Access forbidden."
+          schema:
+            type: object
+    delete:
+      summary: "Delete a product listing by its product ID"
+      description: "ADMIN ACCESS REQUIRED. Find a record by its product ID and delete it."
+      parameters:
+        - name: orderid
+          in: path
+          required: true
+          description: "The order ID corresponding to the record to update"
+          schema:
+            type: integer
+            minimum: 1
+      tags:
+        - admin
+      responses:
+        204:
+          description: "Listing deleted successfully"
+          schema:
+            type: object
+        401:
+          description: "Access forbidden"
+          schema:
+            type: object
   /user:
     get:
       summary: "Get all users"
@@ -166,3 +386,31 @@ paths:
       summary: "Get one user by a given user ID"
       tags:
         - user
+    put:
+      summary: "Update one user profile by its user ID"
+      description: "Find one user's profile by user ID, and update its record using the request body"
+      tags:
+        - user
+      responses:
+        200:
+          description: "User profile update OK"
+          schema:
+            type: object
+        404:
+          description: "User record not found"
+          schema:
+            type: object
+    delete:
+      summary: "Delete one user profile by its user ID"
+      description: "ADMIN ACCESS REQUIRED. Find a user profile by its user ID and delete it from the database. THIS ACTION IS PERMANENT AND IRREVERSIBLE."
+      tags:
+        - admin
+      responses:
+        200:
+          description: "User profile deletion successful"
+          schema:
+            type: object
+        403:
+          description: "Access forbidden"
+          schema:
+            type: object
