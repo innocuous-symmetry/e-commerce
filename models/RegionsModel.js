@@ -25,6 +25,18 @@ module.exports = class RegionsModel {
         }
     }
 
+    async getOneByName(name) {
+        try {
+            const statement = "SELECT * FROM region WHERE name = $1";
+            const values = [name];
+            const result = await db.query(statement, values);
+            if (result.rows.length) return result.rows;
+            return null;
+        } catch(e) {
+            throw new Error(e);
+        }
+    }
+
     // protected
     async create(data) {
         try {

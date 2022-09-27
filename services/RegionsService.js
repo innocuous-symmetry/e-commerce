@@ -23,6 +23,16 @@ module.exports = class RegionsService {
         }
     }
 
+    async getOneByName(name) {
+        try {
+            const result = await RegionInstance.getOneByName(name);
+            if (!result) throw createError(404, "No region entries found.");
+            return result;
+        } catch(e) {
+            throw new Error(e);
+        }
+    }
+
     async create(data) {
         try {
             const result = await RegionInstance(data);
