@@ -23,4 +23,16 @@ module.exports = class ProductModel {
             throw new Error(e);
         }
     }
+
+    async findOneByName(name) {
+        try {
+            const q = `SELECT * FROM product WHERE name = $1;`;
+            const filter = [name];
+            const result = await db.query(q, filter);
+            if (result.rows.length) return result.rows[0];
+            return null;
+        } catch(e) {
+            throw new Error(e);
+        }
+    }
 }

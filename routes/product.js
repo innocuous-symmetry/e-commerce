@@ -6,11 +6,22 @@ module.exports = (app) => {
     app.use('/api/product', router);
 
     router.get('/', async (req, res, next) => {
-        try {
-            const response = await ProductServiceInstance.getAll();
-            res.status(200).send(response);
-        } catch(e) {
-            next(e);
+        const { name } = req.query;
+
+        if (name) {
+            try {
+                const response = await ProductServiceInstance.getOneByName(name);
+                res.status(200).send(response);
+            } catch(e) {
+                next(e);
+            }
+        } else {
+            try {
+                const response = await ProductServiceInstance.getAll();
+                res.status(200).send(response);
+            } catch(e) {
+                next(e);
+            }
         }
     })
 

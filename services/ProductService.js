@@ -22,4 +22,14 @@ module.exports = class ProductService {
             throw new Error(e);
         }
     }
+
+    async getOneByName(name) {
+        try {
+            const result = await ProductInstance.findOneByName(name);
+            if (!result) throw createError(404, 'No products found.');
+            return result;
+        } catch(e) {
+            throw new Error(e);
+        }
+    }
 }
