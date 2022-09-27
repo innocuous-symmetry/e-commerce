@@ -1,16 +1,50 @@
 openapi: 3.0.0
 
 info:
-  description: "Codecademy e-commerce REST API"
+  description: "The REST API for my demo e-commerce app, based on various herb and spice online shopping platforms."
   version: "1.0.0"
-  title: "E-commerce REST API"
+  title: "Mikayla's Spice Shop, REST API"
 
 schemes: 
   - http
 
+servers:
+- url: localhost:8088
+  description: The URL which currently hosts the REST API
+
 host: localhost:4000
 
 basePath: "/"
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        email:
+          type: string
+        password:
+          type: string
+        firstname?:
+          type: string
+        lastname?:
+          type: string
+  securitySchemas:
+    BasicAuth:
+      type: http
+      scheme: basic
+    OAuth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: ''
+          tokenUrl: ''
+          scopes:
+            read: ''
+            write: ''
+            admin: ''
 
 tags:
   - name: auth
@@ -28,30 +62,80 @@ paths:
   /auth/register:
     post:
       summary: "New user registration"
-      description: "New user registration"
+      description: "Takes the request body and uses its data to create and insert a new user record into the database."
       tags:
         - auth
       produces:
         - "application/json"
       responses:
         200:
-          description: 200 Success
+          description: "Request was successful"
+          schema:
+            type: object
+        409:
+          description: "An entry conflicting with this input already exists in the database."
           schema:
             type: object
   /auth/login:
     post:
       summary: "Login and get user account info"
+      description: "Check the user input and, if it matches with the record in the database, login the user and open or update a user session."
       tags:
         - auth
+      produces:
+        - "application/json"
+      responses:
+        200:
+          description: "Successful login, returns user data from database"
+          schema:
+            $ref: '#/components/schemas/User'
+        401:
+          description: "Incorrect username or password"
+          schema:
+            type: object
   /cart/{userid}:
     get:
       summary: "Get the contents of a given user's cart"
+      parameters:
+        - name: userid
+          in: path
+          required: true
+          description: "The user ID of the cart to be located, if it exists."
+          schema:
+            type: integer
+            minimum: 1
       tags:
         - cart
+      responses:
+        200:
+          description: "Cart located successfully"
+          schema:
+            type: object
+        404:
+          description: "Cart was not found"
+          schema:
+            type: object
     put:
       summary: "Update a given user's cart"
+      parameters:
+        - name: userid
+          in: path
+          required: true
+          description: "The user ID of the cart to be located, if it exists."
+          schema:
+            type: integer
+            minimum: 1
       tags:
         - cart
+      responses:
+        200:
+          description: "Cart update successful"
+          schema:
+            type: object
+        400:
+          description: "Bad request"
+          schema:
+            type: object
   /orders:
     get:
       summary: "Get all records of all orders"
