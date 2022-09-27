@@ -376,6 +376,36 @@ paths:
           description: "Access forbidden"
           schema:
             type: object
+
+  /regions:
+    get:
+      summary: "Get all product regions"
+      tags:
+        - region
+      responses:
+        200:
+          description: "Got region listing successfully"
+          schema:
+            type: object
+        404:
+          description: "Requested resource was not found"
+          schema:
+            type: object
+  /regions/{regionid}:
+    get:
+      summary: "Get one region by its ID"
+      tags:
+        - region
+      responses:
+        200:
+          description: "Got region listing successfully"
+          schema:
+            type: object
+        404:
+          description: "Requested resource was not found"
+          schema:
+            type: object
+
   /user:
     get:
       summary: "Get all users"
