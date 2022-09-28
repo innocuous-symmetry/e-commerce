@@ -4,7 +4,7 @@ const pgp = require('pg-promise')({ capSQL: true });
 module.exports = class CartModel {
     async create(userid) {
         try {
-            const statement = pgp.helpers.insert(userid, null, 'cart') + 'RETURNING *';
+            const statement = pgp.helpers.insert({userid: userid}, null, 'cart') + 'RETURNING *';
             const result = await db.query(statement);
             if (result.rows.length) return result.rows[0];
             return null;

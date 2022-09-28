@@ -37,16 +37,9 @@ module.exports = class AuthService {
         try {
             const user = await UserInstance.findOneByEmail(email);
             if (!user) throw createError(401, 'Incorrect email or password');
-            // const match = bcrypt.compare(user.password, password, (result, err) => {
-            //     if (err) throw err;
-            //     return result;
-            // })
-
-            // console.log(match);
-            // if (!match) throw createError(401, 'Incorrect email or password');
-
-            console.log(user.password);
-
+            
+            const match = bcrypt.compare(password, user.password).then((result) => console.log(result));
+            if (!match) throw createError(401, 'Incorrect email or password');
             return user;
         } catch(e) {
             throw createError(500, e);

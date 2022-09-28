@@ -64,7 +64,7 @@ async function main() {
             description         VARCHAR,
             categoryId          INT             REFERENCES category(id),
             regionId            INT             REFERENCES region(id),
-            price               NUMERIC,
+            price               MONEY,
             unit                VARCHAR,
             inventory           INT
         );

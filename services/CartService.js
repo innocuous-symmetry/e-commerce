@@ -15,11 +15,15 @@ module.exports = class CartService {
 
     async getCart(userid) {
         const result = await CartInstance.findOneByUserId(userid);
+        if (!result) throw createError(404, "Cart not found");
+
+        console.log(result.id);
+        return result;
     }
 
-    async addItem(userid, item) {
+    async addItem(userid, itemid) {
         const cart = await CartInstance.findOneByUserId(userid);
-        const newItem = await CartProductInstance.create(item);
+        const newItem = await CartProductInstance.create(itemid);
     }
 
     async removeItem(userid, item) {

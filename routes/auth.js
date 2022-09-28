@@ -18,18 +18,17 @@ module.exports = (app, passport) => {
     router.post('/login', passport.authenticate('local'), async (req, res, next) => {
         try {
             const data = req.body;
-            const response = await AuthServiceInstance.login(data);
-            res.status(200).send(response);
+            const user = await AuthServiceInstance.login(data);
+            if (user) req.user = user;
+            
+            res.status(200).send(user);
         } catch(e) {
             next(e);
         }
     })
 
+    // OAuth2 yet to be implemented
     router.get('/google', async (req, res, next) => {
-        try {
-
-        } catch(e) {
-            next(e);
-        }
+        res.send("google response will go here");
     })
 }
