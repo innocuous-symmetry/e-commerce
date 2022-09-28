@@ -1,51 +1,51 @@
-﻿name,regionid,categoryid
-Allspice - Whole,8,1
-Cocoa Powder,1,1
-Cardamom - Green,3,1
-Cardamom - Black,4,1
-Cinnamon,2,1
-Cloves,1,1
-Fenugreek Seed,4,1
-Lavender Flowers,3,2
-Nutmeg,8,1
-Star Anise,2,1
-Vanilla Bean - Madagascar,1,1
-Vanilla Bean - Mexico,5,1
-Vanilla Paste,8,1
-Ancho Chile,5,3
-Cayenne - African,1,3
-Cayenne - Indian,4,3
-Chipotle Chile,5,3
-Ghost Chile,4,3
-Guajillo Chile,5,3
-Paprika - Hungarian,3,3
-Paprika - Spain,3,3
-Piment d'Esplette,3,3
-Thai Chile,2,3
-Basil,1,2
-Bay Leaf - California,7,2
-Bay Leaf - Turkish,3,2
-Chives,7,2
-Dill Weed,7,2
-Fenugreek Leaf,4,2
-Herbes de Provence,3,2
-Lemongrass,2,2
-Marjoram,1,2
-Oregano - Mexican,5,2
-Oregano - Turkish,3,2
-Parsley,7,2
-Peppermint,7,2
-Rosemary,3,2
-Sage,3,2
-Tarragon,3,2
-Fleur de Sel,3,4
-Grains of Paradise,1,4
-Himalayan Pink Salt,2,4
-Long Pepper,2,4
-Maldon Flake Sea Salt,3,4
-Peppercorn - Black,4,4
-Peppercorn - Green,4,4
-Peppercorn - Pink,8,4
-Peppercorn - Red,2,4
-Peppercorn - White,2,4
-Pepper - Szechuan,2,4
+﻿name,regionid,categoryid,price,inventory,unit,description
+Allspice - Whole,8,1,7,50,oz,"Whole allspice, gives a bitter, earthy, floral aroma to dishes"
+Cocoa Powder,1,1,3,50,oz,A necessary component of the pantry. Chocolate is good.
+Cardamom - Green,3,1,7,50,oz,"A whole spice used in many savory dishes. Aromatic, pungent, and floral."
+Cardamom - Black,4,1,9,50,oz,"A whole spice used in many savory dishes. Earthy, pungent, spicy."
+Cinnamon,2,1,5,50,oz,A necessary component of the pantry. Useful in sweet and savory dishes.
+Cloves,1,1,5,50,oz,"A potent whole spice which provides heat, bitterness, and complex flavor."
+Fenugreek Seed,4,1,5,50,oz,"Commonly used in Indian cuisine, and is extremely bitter with a flavor similar to anise."
+Lavender Flowers,3,2,6,50,oz,"Culinary lavender, very useful for providing floral, perfumed notes to desserts and baked goods."
+Nutmeg,8,1,6,50,oz,"A whole spice, brings a spicy, nutty, butter flavor."
+Star Anise,2,1,7,50,oz,"A strong, characteristic flavor not unlike licorice."
+Vanilla Bean - Madagascar,1,1,15,50,each,"From the fruit of an orchid variety Vanilla planifolia, Madagascar vanilla beans are renowned for their rich, creamy, sweet aroma. Suitable for baking, extracts, and more."
+Vanilla Bean - Mexico,5,1,12,50,each,"From the fruit of an orchid variety Vanilla planifolia, Mexican vanilla beans share the characteristic smooth, creamy flavor of vanilla beans with a somewhat spicier flavor profile."
+Vanilla Paste,8,1,10,50,fl oz,"This paste features the same organic vanilla bean materials, reduced to a paste suitable in the place of vanilla extract."
+Ancho Chile,5,3,7.5,50,oz,"The name ancho (wide) referring to its size and shape in Spanish, ancho is a popular chili with mild heat, about as hot as the average poblano pepper."
+Cayenne - African,1,3,5,50,oz,null
+Cayenne - Indian,4,3,5,50,oz,null
+Chipotle Chile,5,3,4.5,50,oz,"Chipotle chiles are jalapeno peppers which are ripened, smoked and dried. They have a rich, smoky flavor and are commonly used in Mexican and Tex-Mex cuisine."
+Ghost Chile,4,3,7.5,50,oz,"Well known as one of the hottest chili varietals, bhut jolokia was at one time the world's hottest chili peppers, 170 times hotter than Tabasco hot sauce."
+Guajillo Chile,5,3,6,50,oz,"One of the more common varieties of chilis used in Mexican cuisine, it is described to have a fruity and smoky aroma and moderate heat."
+Paprika - Hungarian,3,3,5,50,oz,null
+Paprika - Spain,3,3,5,50,oz,null
+Piment d'Esplette,3,3,5,50,oz,null
+Thai Chile,2,3,5,50,oz,"A pungent chile used in Southeast Asian cuisines. The chiles grow on small bushes, and bring considerable heat as well as a complex fruity flavor."
+Basil,1,2,3,50,oz,"A common culinary herb, used often in Mediterranean cuisines."
+Bay Leaf - California,7,2,4,50,oz,null
+Bay Leaf - Turkish,3,2,6,50,oz,null
+Chives,7,2,4,50,oz,"Chives are a close relative to the onion family, with a mild flavor somewhat akin to leeks."
+Dill Weed,7,2,4,50,oz,null
+Fenugreek Leaf,4,2,5.5,50,oz,"The leaf of the fenugreek plant. Like its seeds, fenugreek leaves are very bitter and have a distinctive flavor."
+Herbes de Provence,3,2,5.5,50,oz,"A French blend of herbs and spices including fennel, lavender, and rosemary."
+Lemongrass,2,2,7,50,oz,null
+Marjoram,1,2,6,50,oz,null
+Oregano - Mexican,5,2,5,50,oz,null
+Oregano - Turkish,3,2,5,50,oz,null
+Parsley,7,2,4,50,oz,null
+Peppermint,7,2,4,50,oz,"Peppermint is a common culinary herb used in many cuisines as well as desserts, beverages, and salads. It is pungent and cooling with a sweet aroma."
+Rosemary,3,2,4,50,oz,"A favorite component of many savory dishes in the west, rosemary has a distinct woody and earthy aroma. Its flavor can be somewhat perfumed."
+Saffron,4,2,12,50,gram,"Derived from the dried stigmas of Autumn Crocus, saffron is a prized component of a culinary enthusiast's spice cabinet. Its flavor is pungent yet sweet, with elements of perfume, honey, and cherry."
+Sage,3,2,4,50,oz,"Sage is an herb from an evergreen shrub in the mint family. Its flavor is rich, earthy and peppery, and has long held a revered place in traditional medicine."
+Tarragon,3,2,4,50,oz,null
+Fleur de Sel,3,4,6,50,oz,null
+Grains of Paradise,1,4,8,50,oz,null
+Himalayan Pink Salt,2,4,4,50,oz,null
+Long Pepper,2,4,9,50,oz,null
+Maldon Flake Sea Salt,3,4,6,50,oz,null
+Peppercorn - Black,4,4,8,50,oz,"Peppercorns of all sorts are loved for the earthy, floral, and spicy flavors they bring to recipes across cultures. They come from the vine Piper nigrum, and its color variation arises from different stages of development! Learn more at https://www.thespruceeats.com/peppercorn-and-pepper-varieties-1809318"
+Peppercorn - Green,4,4,8,50,oz,"Peppercorns of all sorts are loved for the earthy, floral, and spicy flavors they bring to recipes across cultures. They come from the vine Piper nigrum, and its color variation arises from different stages of development! Learn more at https://www.thespruceeats.com/peppercorn-and-pepper-varieties-1809318"
+Peppercorn - Pink,8,4,8,50,oz,"Peppercorns of all sorts are loved for the earthy, floral, and spicy flavors they bring to recipes across cultures. They come from the vine Piper nigrum, and its color variation arises from different stages of development! Learn more at https://www.thespruceeats.com/peppercorn-and-pepper-varieties-1809318"
+Peppercorn - White,2,4,8,50,oz,"Peppercorns of all sorts are loved for the earthy, floral, and spicy flavors they bring to recipes across cultures. They come from the vine Piper nigrum, and its color variation arises from different stages of development! Learn more at https://www.thespruceeats.com/peppercorn-and-pepper-varieties-1809318"
+Pepper - Szechuan,2,4,8,50,oz,"Szechuan pepper is a very unique spice used commonly in Szechuan cuisine. It has a woody, piney flavor profile, and creates a tingling, numbing sensation in the mouth."
