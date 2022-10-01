@@ -1,4 +1,5 @@
 import csv
+import psycopg2
 from psycopg2 import sql
 
 # function to read from a given csv file into postgres

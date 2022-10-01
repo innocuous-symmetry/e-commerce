@@ -3,6 +3,8 @@ import psycopg2
 import os
 
 # read data from environment if present
+supabase_string = os.getenv('CONNECTION')
+
 env_path = "../../.env"
 fd = os.open(env_path, os.O_RDONLY)
 n = 300

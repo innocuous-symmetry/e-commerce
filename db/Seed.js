@@ -1,10 +1,12 @@
 const { Client } = require('pg');
+const insertAll = require('./util/insertAll');
 require('dotenv').config({ path: "../.env" });
 
 async function main() {
     console.log("Beginning database setup.");
 
     const client = new Client({ connectionString: process.env.CONNECTION });
+    console.log(process.env.CONNECTION);
     await client.connect().then(console.log("Now connected to postgres"));
 
     // user
@@ -70,6 +72,10 @@ async function main() {
         );
     `;
 
+    // const populateProductTable = `
+    //     \copy products(name, regionid, categoryid, price, inventory, unit, description) FROM './data/products.csv' DELIMITER ',' CSV HEADER
+    // `;
+
     // products_carts
     const createProductsCarts = `
         CREATE TABLE IF NOT EXISTS products_carts (
@@ -89,7 +95,12 @@ async function main() {
         );
     `;
 
-    const allQueries = [createUserTable, createCartTable, createCategoryTable, createRegionTable, createProductTable, createOrderTable, createProductsCarts, createProductsOrders];
+    const allQueries = [
+        createUserTable, createCartTable, createCategoryTable, createRegionTable,
+        createProductTable, /* populateProductTable, */ createOrderTable,
+        createProductsCarts, createProductsOrders
+    ];
+
     let status;
 
     try {
