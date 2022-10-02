@@ -1,5 +1,5 @@
 const { Client } = require('pg');
-const insertAll = require('./util/insertAll');
+const readCSV = require('./util/readCSV');
 require('dotenv').config({ path: "../.env" });
 
 async function main() {
@@ -72,10 +72,6 @@ async function main() {
         );
     `;
 
-    // const populateProductTable = `
-    //     \copy products(name, regionid, categoryid, price, inventory, unit, description) FROM './data/products.csv' DELIMITER ',' CSV HEADER
-    // `;
-
     // products_carts
     const createProductsCarts = `
         CREATE TABLE IF NOT EXISTS products_carts (
@@ -101,6 +97,14 @@ async function main() {
         createProductsCarts, createProductsOrders
     ];
 
+    const categoryInsert = readCSV('./util/data/categories.csv', 'category');
+    const regionInsert = readCSV('./util/data/regions.csv', 'region');
+    const productInsert = readCSV('./util/data/products.csv', 'product');
+
+    const allInsertions = [
+        categoryInsert, regionInsert, productInsert
+    ]
+
     let status;
 
     try {
@@ -108,6 +112,12 @@ async function main() {
         
         for (let q of allQueries) {
             await client.query(q);
+        }
+
+        for (let section of allInsertions) {
+            for (let s of section) {
+                await client.query(s);
+            }
         }
 
         await client.end();
