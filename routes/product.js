@@ -3,7 +3,7 @@ const ProductService = require('../services/ProductService');
 const ProductServiceInstance = new ProductService();
 
 module.exports = (app) => {
-    app.use('/api/product', router);
+    app.use('/product', router);
 
     router.get('/', async (req, res, next) => {
         const { name } = req.query;

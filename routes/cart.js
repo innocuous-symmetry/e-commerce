@@ -3,7 +3,7 @@ const CartService = require('../services/CartService');
 const CartServiceInstance = new CartService();
 
 module.exports = (app) => {
-    app.use('/api/cart', router);
+    app.use('/cart', router);
 
     // logic for global cart entries
     router.get('/', async (req, res, next) => {

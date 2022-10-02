@@ -4,7 +4,7 @@ const UserService = require('../services/UserService');
 const UserServiceInstance = new UserService();
 
 module.exports = (app) => {
-    app.use('/api/user', router);
+    app.use('/user', router);
 
     router.get('/:userId', async (req, res, next) => {
         try {

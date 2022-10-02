@@ -3,7 +3,7 @@ const RegionsService = require('../services/RegionsService');
 const RegionsInstance = new RegionsService();
 
 module.exports = (app) => {
-    app.use('/api/regions', router);
+    app.use('/regions', router);
 
     router.get('/', async (req, res, next) => {
         const { name } = req.query;

@@ -1,7 +1,7 @@
 const router = require('express').Router();
 
 module.exports = (app) => {
-    app.use('/api/orders', router);
+    app.use('/orders', router);
 
     router.get('/', async (req, res, next) => {
         try {

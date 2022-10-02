@@ -3,7 +3,7 @@ const CategoryService = require('../services/CategoryService');
 const CategoryInstance = new CategoryService();
 
 module.exports = (app) => {
-    app.use('/api/category', router);
+    app.use('/category', router);
 
     router.get('/', async (req, res, next) => {
         const { name } = req.query;
