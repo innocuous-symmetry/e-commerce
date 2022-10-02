@@ -1,40 +1,33 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { useReducer } from 'react';
-import { AppContext, initialState, reducer } from './store/store';
-
-import NavBar from './components/Navbar';
-import LandingPage from './components/LandingPage';
-import Products from './components/Products/Products';
-import LoginForm from './components/User/LoginForm';
-import Register from './components/User/Register';
-import UserProfile from './components/User/UserProfile';
-import ProductPage from './components/Products/ProductPage';
-import Cart from './components/Cart/Cart';
-
-import './App.scss'
-import AdminHome from './components/AdminPortal/AdminHome';
+import { useState } from 'react'
+import reactLogo from './assets/react.svg'
+import './App.css'
 
 function App() {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [count, setCount] = useState(0)
 
   return (
-    <BrowserRouter>
-      <AppContext.Provider value={[state, dispatch]}>
-          <NavBar/>
-
-          <Routes>
-            <Route path="/" element={<LandingPage/>} />
-            <Route path="/login" element={<LoginForm/>} />
-            <Route path="/users/:userID" element={<UserProfile profile={state.user.id} />} />
-            <Route path="/register" element={<Register/>} />
-            <Route path="/products/" element={<Products />} />
-            <Route path="/cart/" element={<Cart />} />
-            <Route path="/products/:productID" element={<ProductPage />} />
-
-            <Route path="/admin" element={<AdminHome />} />
-          </Routes>
-        </AppContext.Provider>
-    </BrowserRouter>
+    <div className="App">
+      <div>
+        <a href="https://vitejs.dev" target="_blank">
+          <img src="/vite.svg" className="logo" alt="Vite logo" />
+        </a>
+        <a href="https://reactjs.org" target="_blank">
+          <img src={reactLogo} className="logo react" alt="React logo" />
+        </a>
+      </div>
+      <h1>Vite + React</h1>
+      <div className="card">
+        <button onClick={() => setCount((count) => count + 1)}>
+          count is {count}
+        </button>
+        <p>
+          Edit <code>src/App.tsx</code> and save to test HMR
+        </p>
+      </div>
+      <p className="read-the-docs">
+        Click on the Vite and React logos to learn more
+      </p>
+    </div>
   )
 }
 
