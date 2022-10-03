@@ -13,6 +13,9 @@ import Cart from './components/Cart/Cart';
 
 import './App.scss'
 import AdminHome from './components/AdminPortal/AdminHome';
+import Auth from './components/SupabaseAuth/Auth';
+import SupabaseLogin from './components/SupabaseAuth/SupabaseLogin';
+import SupabaseRegister from './components/SupabaseAuth/SupabaseRegister';
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -32,6 +35,9 @@ function App() {
             <Route path="/products/:productID" element={<ProductPage />} />
 
             <Route path="/admin" element={<AdminHome />} />
+            <Route path="/supabase" element={<Auth />} />
+            <Route path="/supabase/supabase-auth/login" element={<SupabaseLogin />} />
+            <Route path="/supabase/supabase-auth/register" element={<SupabaseRegister />} />
           </Routes>
         </AppContext.Provider>
     </BrowserRouter>
