@@ -3,16 +3,16 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 
 // components
+import Home from './components/Home'
+import Navbar from './components/Nav/Navbar'
 import Register from './components/Auth/Register'
 import Login from './components/Auth/Login'
-import Home from './components/Home'
 
 // util
 import { SupabaseProvider, getSupabaseClient, useSupabase } from './supabase/SupabaseContext'
 import { initialState } from './util/initialState'
 import { AppState } from './util/types'
-import './App.css'
-import Navbar from './components/Nav/Navbar'
+import './App.scss'
 
 export default function App() {
   const [state, setState] = useState<AppState>(initialState);

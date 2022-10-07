@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSupabase } from "../../supabase/SupabaseContext"
-import "./Navbar.css";
+import "./Navbar.scss";
 
 export default function Navbar() {
     const [view, setView] = useState<JSX.Element>(<p>Loading...</p>);
