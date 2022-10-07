@@ -5,8 +5,7 @@ import { useEffect, useState } from 'react'
 // components
 import Home from './components/Home'
 import Navbar from './components/Nav/Navbar'
-import Register from './components/Auth/Register'
-import Login from './components/Auth/Login'
+import AuthForm from './components/Auth/AuthForm'
 
 // util
 import { SupabaseProvider, getSupabaseClient, useSupabase } from './supabase/SupabaseContext'
@@ -52,9 +51,8 @@ export default function App() {
             <Route path="/" element={<Home />} />
 
             {/* Second level routes */}
-            <Route path="/register" element={<Register />} />
-            <Route path="/login" element={<Login />} />
-
+            <Route path="/register" element={<AuthForm format="register" />} />
+            <Route path="/login" element={<AuthForm format="login" />} />
           </Routes>
         </div>
       </BrowserRouter>

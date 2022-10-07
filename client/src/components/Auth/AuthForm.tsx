@@ -1,14 +1,17 @@
-import { FormInput, getSession, handleLogin } from "../../util/authHelpers";
 import { useSupabase } from "../../supabase/SupabaseContext";
-import { useState } from "react"
+import { FormInput, getSession, handleLogin, handleRegister } from "../../util/authHelpers";
+import { AuthFormType } from "../../util/types";
+import { useState } from "react";
 
-export default function Login() {
+const AuthForm: AuthFormType = ({ format }) => {
     const [input, setInput] = useState<FormInput>({ email: "", password: "" });
     const supabase = useSupabase();
+    const formText = format == "login" ? "Login" : "Register";
+    const formFunction = format == "login" ? () => handleLogin(supabase, input) : () => handleRegister(supabase, input);
 
     return (
         <section>
-            <h1>Login</h1>
+            <h1>{formText}</h1>
 
             <form>
                 <div>
@@ -21,8 +24,12 @@ export default function Login() {
                 </div>
             </form>
 
-            <button onClick={() => handleLogin(supabase, input)}>Login</button>
-            <button onClick={() => getSession(supabase)}>Session</button>
+            <div className="auth-actions">
+                <button onClick={formFunction}>{formText}</button>
+                <button onClick={() => getSession(supabase)}>Session</button>
+            </div>
         </section>
     )
 }
+
+export default AuthForm

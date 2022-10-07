@@ -18,13 +18,18 @@ export default function Navbar() {
 
         setView(
             <section id="navbar-section">
-                <h1>Express Spice Market</h1>
+                <h1><a href="/">Express Spice Market</a></h1>
                 <div className="user-data">
                     {
                         user?.email && <p>{user.email}</p>
                     }
                     {
-                        user ? <button onClick={handleLogout}>Log Out</button> : <button onClick={() => navigate('/login')}>Log In</button>
+                        user ? <button onClick={handleLogout}>Log Out</button> : (
+                            <>
+                            <button onClick={() => navigate('/login')}>Log In</button>
+                            <button onClick={() => navigate('/register')}>Register</button>
+                            </>
+                        )
                     }
                 </div>
             </section>
