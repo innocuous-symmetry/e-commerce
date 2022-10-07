@@ -16,3 +16,6 @@ Payment information will be supported through the Stripe API, with session suppo
 ## Accessing the Project and its REST API Online
 1. The REST API for this project is exposed at https://mikayla-spice-market-api.herokuapp.com/
 2. The client site will be hosted on Netlify and is not online as of yet.
+
+## Accessing API Documentation
+The Swagger docs for this project can be accessed at https://mikayla-spice-market-api.herokuapp.com/api-docs/
