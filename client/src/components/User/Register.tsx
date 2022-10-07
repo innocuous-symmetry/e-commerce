@@ -1,9 +1,4 @@
 import { useState } from "react";
-import { createClient } from "@supabase/supabase-js";
-import { useAuth } from "../../supabase/SupabaseContext";
-
-const url = import.meta.env.VITE_SUPABASE_URL;
-const key = import.meta.env.VITE_SUPABASE_KEY;
 
 interface FormInput {
     email: string
@@ -12,11 +7,12 @@ interface FormInput {
 
 export default function Register() {
     const [input, setInput] = useState<FormInput>({email: "", password: ""});
-    const { handleRegister, setUserData, setUserSession } = useAuth();
+    // const { handleRegister, authData } = useSupabase();
 
     const handleClick = () => {
         const { email, password } = input;
-        if (email && password) handleRegister(email, password, { setUserData, setUserSession });
+        console.log(input);
+        // if (email && password) handleRegister!(email, password, authData);
     }
 
     return (
