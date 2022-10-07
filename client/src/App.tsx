@@ -1,31 +1,63 @@
+// react imports
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import Home from './components/Home/Home'
-import Register from './components/User/Register'
-import { SupabaseProvider, getSupabaseClient, useSupabase } from './supabase/SupabaseContext'
-import './App.css'
-import { useEffect } from 'react'
-import Login from './components/User/Login'
+import { useEffect, useState } from 'react'
 
-function App() {
+// components
+import Register from './components/Auth/Register'
+import Login from './components/Auth/Login'
+import Home from './components/Home'
+
+// util
+import { SupabaseProvider, getSupabaseClient, useSupabase } from './supabase/SupabaseContext'
+import { initialState } from './util/initialState'
+import { AppState } from './util/types'
+import './App.css'
+import Navbar from './components/Nav/Navbar'
+
+export default function App() {
+  const [state, setState] = useState<AppState>(initialState);
   const supabase = useSupabase();
 
   useEffect(() => {
-    console.log(supabase);
+    setState((prev: AppState) => {
+      let newUser;
+      let newSession;
+
+      if (supabase) {
+        newSession = supabase.auth.session();
+        newUser = supabase.auth.user();
+      }
+
+      return {
+        ...prev,
+        supabase: supabase,
+        user: newUser ?? prev.user,
+        session: newSession ?? prev.session
+      }
+    })
   }, [supabase])
+
+  useEffect(() => {
+    console.log(state);
+  }, [state]);
 
   return (
     <SupabaseProvider value={getSupabaseClient()}>
       <BrowserRouter>
         <div className="App">
+        <Navbar />
           <Routes>
+
+            {/* Top level route */}
             <Route path="/" element={<Home />} />
+
+            {/* Second level routes */}
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
+
           </Routes>
         </div>
       </BrowserRouter>
     </SupabaseProvider>
   )
 }
-
-export default App

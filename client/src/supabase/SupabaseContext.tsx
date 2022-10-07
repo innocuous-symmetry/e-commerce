@@ -16,6 +16,6 @@ export const SupabaseProvider: FC<{children: ReactNode, value: SupabaseClient}> 
 }
 
 export const useSupabase = () => {
-    const context = useContext(SupabaseContext);
-    return context || "Context currently undefined";
+    const context = useContext(SupabaseContext) || undefined;
+    return context;
 }
