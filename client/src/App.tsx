@@ -1,44 +1,29 @@
 // react imports
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 
 // components
 import Home from './components/Home'
 import Navbar from './components/Nav/Navbar'
 import AuthForm from './components/Auth/AuthForm'
+import Cart from './components/Cart/Cart'
+import AllProducts from './components/Product/AllProducts'
+import ProductPage from './components/Product/ProductPage'
+import UserProfile from './components/User/UserProfile'
+import UserSettings from './components/User/UserSettings'
+import OrderHistory from './components/Order/OrderHistory'
+import OrderRecord from './components/Order/OrderRecord'
 
 // util
 import { SupabaseProvider, getSupabaseClient, useSupabase } from './supabase/SupabaseContext'
-import { initialState } from './util/initialState'
-import { AppState } from './util/types'
 import './App.scss'
 
 export default function App() {
-  const [state, setState] = useState<AppState>(initialState);
   const supabase = useSupabase();
 
   useEffect(() => {
-    setState((prev: AppState) => {
-      let newUser;
-      let newSession;
-
-      if (supabase) {
-        newSession = supabase.auth.session();
-        newUser = supabase.auth.user();
-      }
-
-      return {
-        ...prev,
-        supabase: supabase,
-        user: newUser ?? prev.user,
-        session: newSession ?? prev.session
-      }
-    })
+    console.log(supabase);
   }, [supabase])
-
-  useEffect(() => {
-    console.log(state);
-  }, [state]);
 
   return (
     <SupabaseProvider value={getSupabaseClient()}>
@@ -47,12 +32,26 @@ export default function App() {
         <Navbar />
           <Routes>
 
-            {/* Top level route */}
+            {/* Top level home page */}
             <Route path="/" element={<Home />} />
 
-            {/* Second level routes */}
+            {/* Auth routes */}
             <Route path="/register" element={<AuthForm format="register" />} />
             <Route path="/login" element={<AuthForm format="login" />} />
+
+            {/* Product components */}
+            <Route path="/products" element={<AllProducts />} />
+            <Route path="/products/:productId" element={<ProductPage />} />
+
+            {/* User data */}
+            <Route path="/my-profile" element={<UserProfile />} />
+            <Route path="/user-settings" element={<UserSettings />} />
+            <Route path="/cart" element={<Cart />} />
+
+            {/* Order data */}
+            <Route path="/orders" element={<OrderHistory />} />
+            <Route path="/orders/:orderId" element={<OrderRecord />} />
+
           </Routes>
         </div>
       </BrowserRouter>

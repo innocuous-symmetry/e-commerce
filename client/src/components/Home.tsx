@@ -5,12 +5,13 @@ export default function Home() {
 
     return (
         <div>
-            <h1>Vite + React + Supabase</h1>
-            <p>Check out the user stuff below:</p>
+            <h1>The finest spice shop on the internet.</h1>
+            <p>Or at the very least, what their website could look like.</p>
 
             <div>
-                <button onClick={() => navigate('/login')}>Login</button>
-                <button onClick={() => navigate('/register')}>Register</button>
+                <button onClick={() => navigate('/products')}>View our Products</button>
+                <button onClick={() => navigate('/philosophy')}>Our Philosophy</button>
+                <button onClick={() => navigate('/contact')}>Contact Us</button>
             </div>
         </div>
     )

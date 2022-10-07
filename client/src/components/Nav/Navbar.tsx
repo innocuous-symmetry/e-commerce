@@ -21,7 +21,12 @@ export default function Navbar() {
                 <h1><a href="/">Express Spice Market</a></h1>
                 <div className="user-data">
                     {
-                        user?.email && <p>{user.email}</p>
+                        user?.email && (
+                            <>
+                            <p>{user.email}</p>
+                            <button onClick={() => navigate('/my-profile')}>View Profile</button>
+                            </>
+                        )
                     }
                     {
                         user ? <button onClick={handleLogout}>Log Out</button> : (
