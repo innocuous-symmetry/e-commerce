@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from "react"
 import { useSupabase } from "../../supabase/SupabaseContext";
 
 interface FormInput {
@@ -6,35 +6,28 @@ interface FormInput {
     password: string
 }
 
-export default function Register() {
-    const [input, setInput] = useState<FormInput>({email: "", password: ""});
+export default function Login() {
+    const [input, setInput] = useState<FormInput>({ email: "", password: "" });
     const supabase = useSupabase();
 
-    const handleClick = async () => {
+    const handleLogin = async () => {
         if (typeof supabase === "string") return;
+        if (!input.email || !input.password) return;
+        console.log(input);
 
-        const { email, password } = input;
-        if (email && password) {
-            const { user, session, error} = await supabase.auth.signUp({ email, password });
-            if (error) throw error;
-            console.log(user, session);
-        }
+        const { user, session, error } = await supabase.auth.signIn({ email: input.email, password: input.password });
+        if (error) throw error;
+        console.log(user, session);
+        return { user, session };
     }
 
     const getSession = async () => {
         if (typeof supabase === "string") return;
-
         console.log(supabase.auth.session());
-    }
-
-    const checkSupabase = () => {
-        if (supabase) console.log(supabase);
     }
 
     return (
         <section>
-            <h1>Register</h1>
-
             <form>
                 <div>
                     <label>Email:</label>
@@ -46,8 +39,7 @@ export default function Register() {
                 </div>
             </form>
 
-            <button onClick={handleClick}>Register</button>
-            <button onClick={checkSupabase}>Supabase?</button>
+            <button onClick={handleLogin}>Login</button>
             <button onClick={getSession}>Session</button>
         </section>
     )

@@ -1,6 +1,9 @@
 import { createContext, FC, ReactNode, useContext } from "react";
-import { SupabaseClient } from "@supabase/supabase-js";
-import { getSupabaseClient } from "./getSupabaseClient";
+import { createClient, SupabaseClient } from "@supabase/supabase-js";
+
+export const getSupabaseClient = () => {
+    return createClient(import.meta.env.VITE_SUPABASE_URL, import.meta.env.VITE_SUPABASE_KEY);
+}
 
 const SupabaseContext = createContext<SupabaseClient | undefined>(getSupabaseClient());
 

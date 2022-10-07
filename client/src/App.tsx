@@ -1,10 +1,10 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Home from './components/Home/Home'
 import Register from './components/User/Register'
-import { SupabaseProvider, useSupabase } from './supabase/SupabaseContext'
-import { getSupabaseClient } from './supabase/getSupabaseClient'
+import { SupabaseProvider, getSupabaseClient, useSupabase } from './supabase/SupabaseContext'
 import './App.css'
 import { useEffect } from 'react'
+import Login from './components/User/Login'
 
 function App() {
   const supabase = useSupabase();
@@ -20,6 +20,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
           </Routes>
         </div>
       </BrowserRouter>
