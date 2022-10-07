@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useSupabase } from "../../supabase/SupabaseContext";
 
 interface FormInput {
     email: string
@@ -6,6 +7,7 @@ interface FormInput {
 }
 
 export default function Register() {
+    const supabase = useSupabase();
     const [input, setInput] = useState<FormInput>({email: "", password: ""});
     // const { handleRegister, authData } = useSupabase();
 
@@ -13,6 +15,10 @@ export default function Register() {
         const { email, password } = input;
         console.log(input);
         // if (email && password) handleRegister!(email, password, authData);
+    }
+
+    const handleSupabase = () => {
+        if (supabase) console.log(supabase);
     }
 
     return (
@@ -31,6 +37,7 @@ export default function Register() {
             </form>
 
             <button onClick={handleClick}>Register</button>
+            <button onClick={handleSupabase}>Supabase?</button>
         </section>
     )
 }

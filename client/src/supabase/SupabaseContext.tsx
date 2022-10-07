@@ -1,13 +1,18 @@
-import { createContext, FC, ReactNode } from "react";
+import { createContext, FC, ReactNode, useContext } from "react";
 import { SupabaseClient } from "@supabase/supabase-js";
-import { useSupabase } from "./useSupabase";
+import { getSupabaseClient } from "./getSupabaseClient";
 
-const SupabaseContext = createContext<SupabaseClient | undefined>(undefined!);
+const SupabaseContext = createContext<SupabaseClient | undefined>(getSupabaseClient());
 
 export const SupabaseProvider: FC<{children: ReactNode, value: SupabaseClient}> = ({ children }) => {
     return (
-        <SupabaseContext.Provider value={useSupabase()}>
+        <SupabaseContext.Provider value={getSupabaseClient()}>
             {children}
         </SupabaseContext.Provider>
     )
+}
+
+export const useSupabase = () => {
+    const context = useContext(SupabaseContext);
+    return context || "Context currently undefined";
 }
