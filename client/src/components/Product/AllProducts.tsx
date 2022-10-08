@@ -6,7 +6,7 @@ import ProductCard from "./ProductCard";
 
 export default function AllProducts() {
     const [productData, setProductData] = useState<ProductModel[]>();
-    const [view, setView] = useState<JSX.Element>();
+    const [view, setView] = useState<JSX.Element>(<p>Loading...</p>);
 
     useEffect(() => {
         getAllProducts()
