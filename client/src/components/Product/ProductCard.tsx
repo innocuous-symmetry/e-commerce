@@ -1,17 +1,19 @@
 import { useNavigate } from "react-router-dom";
 import { ProductCardType } from "../../util/types";
+import Button from "../_ui/Button/Button";
+import Card from "../_ui/Card/Card";
 
 const ProductCard: ProductCardType = ({ data }) => {
     const navigate = useNavigate();
 
     return (
-        <div className="product-card">
+        <Card additionalClasses="product-card">
             <h1>{data.name}</h1>
             <p>{data.price}</p>
             <p>{data.description}</p>
 
-            <button onClick={() => navigate(`/products/${data.id}`)}>See More</button>
-        </div>
+            <Button onClick={() => navigate(`/products/${data.id}`)}>See More</Button>
+        </Card>
     )
 }
 

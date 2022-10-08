@@ -2,6 +2,8 @@ import { useEffect, useState } from "react"
 import { v4 } from "uuid";
 import { getAllProducts } from "../../util/apiUtils";
 import { ProductModel } from "../../util/types";
+import Gallery from "../_ui/Gallery/Gallery";
+import Page from "../_ui/Page/Page";
 import ProductCard from "./ProductCard";
 
 export default function AllProducts() {
@@ -16,16 +18,16 @@ export default function AllProducts() {
 
     useEffect(() => {
         setView(
-            <section>
+            <Page>
                 <h1>All Products!</h1>
-                <div className="product-card-list">
+                <Gallery additionalClasses="product-card-list" columns={3}>
                     {
                         productData && productData.map((data: ProductModel) => {
                             return <ProductCard data={data} key={v4()} />
                         })
                     }
-                </div>
-            </section>
+                </Gallery>
+            </Page>
         )
     }, [productData, setProductData]);
 
