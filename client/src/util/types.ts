@@ -1,10 +1,17 @@
-import { Session, SupabaseClient, User } from "@supabase/supabase-js";
 import { FC } from "react";
 
-export interface AppState {
-    supabase?: SupabaseClient
-    session?: Session
-    user?: User
-}
-
+// component types
 export type AuthFormType = FC<{ format: string }>
+export type ProductCardType = FC<{ data: ProductModel }>
+
+// data models
+
+export interface ProductModel {
+    id: number
+    name: string
+    description: string
+    categoryid: number
+    regionid: number
+    price: number | string
+    inventory: number
+}
