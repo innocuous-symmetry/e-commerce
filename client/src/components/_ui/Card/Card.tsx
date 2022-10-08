@@ -1,8 +1,8 @@
-import { UICompWithChildren } from "../../../util/types"
+import { UICardType } from "../../../util/types"
 
-const Card: UICompWithChildren = ({ children, additionalClasses = "" }) => {
+const Card: UICardType = ({ children, additionalClasses = "", width = 45 }) => {
     return (
-        <section className={`ui-card-component ${additionalClasses}`}>
+        <section className={`ui-card-component ${additionalClasses} width-${width}`}>
             { children }
         </section>
     )

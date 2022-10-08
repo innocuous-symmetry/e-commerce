@@ -15,8 +15,8 @@ import OrderHistory from './components/Order/OrderHistory'
 import OrderRecord from './components/Order/OrderRecord'
 
 // util
-import { SupabaseProvider, getSupabaseClient, useSupabase } from './supabase/SupabaseContext'
-import './App.scss'
+import { SupabaseProvider, useSupabase } from './supabase/SupabaseContext'
+import './sass/App.scss'
 
 export default function App() {
   const supabase = useSupabase();
@@ -26,12 +26,12 @@ export default function App() {
   }, [supabase])
 
   return (
-    <SupabaseProvider value={getSupabaseClient()}>
+    <SupabaseProvider value={supabase}>
       <BrowserRouter>
         <div className="App">
-        <Navbar />
-          <Routes>
+          <Navbar />
 
+          <Routes>
             {/* Top level home page */}
             <Route path="/" element={<Home />} />
 
@@ -51,7 +51,6 @@ export default function App() {
             {/* Order data */}
             <Route path="/orders" element={<OrderHistory />} />
             <Route path="/orders/:orderId" element={<OrderRecord />} />
-
           </Routes>
         </div>
       </BrowserRouter>

@@ -4,8 +4,9 @@ import { FC, ReactNode } from "react";
 export type AuthFormType = FC<{ format: string }>
 export type ProductCardType = FC<{ data: ProductModel }>
 export type UIButtonType = FC<UIButtonParams>
-export type UICompWithChildren = FC<UICompChildrenParams>
+export type UICardType = FC<UICardParams>
 export type UIGalleryType = FC<UIGalleryParams>
+export type UIPageType = FC<UIPageParams>
 
 // definitions for component params
 interface UIParams {
@@ -17,7 +18,12 @@ interface UIButtonParams extends UIParams {
     children?: string
 }
 
-interface UICompChildrenParams extends UIParams { children: ReactNode }
+interface UIPageParams extends UIParams { children: ReactNode }
+
+interface UICardParams extends UIParams {
+    children: ReactNode
+    width?: number
+}
 
 interface UIGalleryParams extends UIParams {
     children: ReactNode
@@ -26,7 +32,7 @@ interface UIGalleryParams extends UIParams {
 
 // data models
 
-export interface ProductModel {
+export interface ProductModel extends UICardParams {
     id: number
     name: string
     description: string

@@ -6,7 +6,7 @@ export default function Home() {
     const navigate = useNavigate();
 
     return (
-        <Page>
+        <Page additionalClasses="homepage">
             <h1>The finest spice shop on the internet.</h1>
             <p>Or at the very least, what their website could look like.</p>
 

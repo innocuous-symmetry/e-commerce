@@ -1,6 +1,6 @@
-import { UICompWithChildren } from "../../../util/types";
+import { UIPageType } from "../../../util/types";
 
-const Page: UICompWithChildren = ({ children, additionalClasses = "" }) => {
+const Page: UIPageType = ({ children, additionalClasses = "" }) => {
     return (
         <section className={`ui-page-component ${additionalClasses}`}>
             { children }

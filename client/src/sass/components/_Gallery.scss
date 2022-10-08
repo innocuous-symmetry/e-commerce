@@ -1,0 +1,18 @@
+.ui-gallery-component {
+    background-color: red;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 0;
+    
+    &.product-card-list {
+        .ui-card-component {
+            width: 30%;
+            margin: 1rem;
+            padding: 1rem 0;
+            color: black;
+            background-color: white;
+        }
+    }
+}

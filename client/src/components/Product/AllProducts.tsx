@@ -15,6 +15,10 @@ export default function AllProducts() {
         .then(res => res.json())
         .then(res => setProductData(res));
     }, [])
+    
+    useEffect(() => {
+        console.log(productData);
+    }, [productData])
 
     useEffect(() => {
         setView(
