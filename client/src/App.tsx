@@ -13,6 +13,8 @@ import UserProfile from './components/User/UserProfile'
 import UserSettings from './components/User/UserSettings'
 import OrderHistory from './components/Order/OrderHistory'
 import OrderRecord from './components/Order/OrderRecord'
+import Philosophy from './components/Content/Philosophy'
+import Contact from './components/Content/Contact'
 
 // util
 import { SupabaseProvider, useSupabase } from './supabase/SupabaseContext'
@@ -51,6 +53,10 @@ export default function App() {
             {/* Order data */}
             <Route path="/orders" element={<OrderHistory />} />
             <Route path="/orders/:orderId" element={<OrderRecord />} />
+
+            {/* Misc content pages */}
+            <Route path="/philosophy" element={<Philosophy />} />
+            <Route path="/contact" element={<Contact />} />
           </Routes>
         </div>
       </BrowserRouter>
