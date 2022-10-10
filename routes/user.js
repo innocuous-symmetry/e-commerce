@@ -30,7 +30,8 @@ module.exports = (app) => {
     router.post('/', async (req, res, next) => {
         try {
             const data = req.body;
-            
+            const response = await UserServiceInstance.insert(data);
+            res.status(200).send(response);
         } catch(e) {
             next(e);
         }

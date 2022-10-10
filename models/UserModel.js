@@ -62,19 +62,4 @@ module.exports = class UserModel {
             throw new Error(e);
         }
     }
-
-    async createFromSupabase(data) {
-        try {
-            const statement = '';
-            const result = await db.query(statement);
-
-            if (result.rows.length) {
-                return result.rows[0];
-            }
-
-            return null;
-        } catch(e) {
-            throw new Error(e);
-        }
-    }
 }

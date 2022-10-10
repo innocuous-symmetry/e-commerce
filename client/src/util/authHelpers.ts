@@ -1,5 +1,4 @@
-import { SupabaseClient } from "@supabase/supabase-js";
-import { updateUser } from "./apiUtils";
+import { SupabaseClient, User } from "@supabase/supabase-js";
 
 export interface FormInput {
     email: string
@@ -22,11 +21,33 @@ export const handleRegister = async (supabase: SupabaseClient | undefined, input
     const { email, password } = input;
     if (email && password) {
         const { user, session, error} = await supabase.auth.signUp({ email, password });
+        if (!user) return;
         if (error) throw error;
+
+        insertNewUser(user);
     }
 }
 
 export const getSession = async (supabase: SupabaseClient | undefined) => {
     if (!supabase) return;
     console.log(supabase.auth.session());
+}
+
+export const insertNewUser = async (data: User) => {
+    if (!data) return;
+    const { email } = data;
+    const formattedData = {
+        email: email,
+        supabaseUser: data
+    }
+
+    const response = await fetch("https://mikayla-spice-market-api.com/users/", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(formattedData)
+    })
+
+    return response;
 }
