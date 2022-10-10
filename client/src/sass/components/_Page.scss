@@ -1,9 +1,13 @@
 @import "../helpers/variables";
+@import "../helpers/placeholders";
 
 .ui-page-component {
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
+  background-color: $darkred;
+
+  @extend %background-colors;
 
   &.homepage {
     height: 100vh;

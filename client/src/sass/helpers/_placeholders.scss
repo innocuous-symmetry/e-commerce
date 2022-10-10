@@ -21,6 +21,16 @@
         background-color: $papyrus;
         color: black;
     }
+
+    &.lavender {
+        background-color: $lavender;
+        color: black;
+    }
+
+    &.turmeric {
+        background-color: $turmeric;
+        color: black;
+    }
 }
 
 %text-colors {
@@ -42,5 +52,13 @@
 
     &.papyrus {
         color: $papyrus;
+    }
+
+    &.lavender {
+        color: $lavender;
+    }
+
+    &.turmeric {
+        color: $turmeric;
     }
 }

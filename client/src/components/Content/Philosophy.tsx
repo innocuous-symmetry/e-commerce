@@ -10,7 +10,7 @@ export default function Philosophy() {
                 Furthermore, things and stuff and things and stuff and things and stuff and things and stuff and things and stuff and things.
             </p>
 
-            <Card additionalClasses="medium short" />
+            <Card additionalClasses="medium short thyme" />
 
             <p>
                 We care a lot about things and stuff at Express Spice Market. If you're ever concerned about our things and stuff we will do what we can to alleviate your concerns.
