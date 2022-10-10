@@ -14,7 +14,7 @@ async function main() {
         CREATE TABLE IF NOT EXISTS users (
             id                  INT             PRIMARY KEY GENERATED ALWAYS AS IDENTITY NOT NULL,
             email               VARCHAR         NOT NULL,
-            password            VARCHAR         NOT NULL,
+            supabaseUser        JSON            NOT NULL,
             firstname           VARCHAR,
             lastname            VARCHAR,
             isadmin             BOOLEAN         DEFAULT FALSE

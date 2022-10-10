@@ -9,6 +9,17 @@ export const getByProductId = async (id: string) => {
     return response;
 }
 
+export const updateUser = async (id: string, body: object) => {
+    const response = await fetch(`https://mikayla-spice-market-api.herokuapp.com/users/${id}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(body)
+    });
+    return response;
+}
+
 // order functions
 export const getOrder = async () => {
     return;

@@ -26,4 +26,13 @@ module.exports = (app) => {
             next(e);
         }
     })
+
+    router.post('/', async (req, res, next) => {
+        try {
+            const data = req.body;
+            
+        } catch(e) {
+            next(e);
+        }
+    })
 }

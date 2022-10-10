@@ -23,4 +23,12 @@ module.exports = class UserService {
             throw new Error(e);
         }
     }
+
+    async insert(data) {
+        try {
+            const user = await UserInstance.create(data);
+        } catch(e) {
+            next(e);
+        }
+    }
 }

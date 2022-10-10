@@ -1,4 +1,5 @@
 import { SupabaseClient } from "@supabase/supabase-js";
+import { updateUser } from "./apiUtils";
 
 export interface FormInput {
     email: string
@@ -22,7 +23,6 @@ export const handleRegister = async (supabase: SupabaseClient | undefined, input
     if (email && password) {
         const { user, session, error} = await supabase.auth.signUp({ email, password });
         if (error) throw error;
-        console.log(user, session);
     }
 }
 

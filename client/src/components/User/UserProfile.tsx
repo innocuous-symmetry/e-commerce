@@ -16,7 +16,7 @@ export default function UserProfile() {
             <div className="user-profile-options">
                 <Button onClick={() => navigate('/cart')}>View my Cart</Button>
                 <Button onClick={() => navigate('/orders')}>View my Order History</Button>
-                <Button onClick={() => {}}>Manage Account Settings</Button>
+                <Button onClick={() => navigate('/user-settings')}>Manage Account Settings</Button>
             </div>
         </Page>
     )
