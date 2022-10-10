@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSupabase } from "../../supabase/SupabaseContext"
+import Button from "../_ui/Button/Button";
 import "./Navbar.scss";
 
 export default function Navbar() {
@@ -24,15 +25,15 @@ export default function Navbar() {
                         user?.email && (
                             <>
                             <p>{user.email}</p>
-                            <button onClick={() => navigate('/my-profile')}>View Profile</button>
+                            <Button onClick={() => navigate('/my-profile')}>View Profile</Button>
                             </>
                         )
                     }
                     {
-                        user ? <button onClick={handleLogout}>Log Out</button> : (
+                        user ? <Button onClick={handleLogout}>Log Out</Button> : (
                             <>
-                            <button onClick={() => navigate('/login')}>Log In</button>
-                            <button onClick={() => navigate('/register')}>Register</button>
+                            <Button onClick={() => navigate('/login')}>Log In</Button>
+                            <Button onClick={() => navigate('/register')}>Register</Button>
                             </>
                         )
                     }

@@ -9,7 +9,7 @@ export type UIGalleryType = FC<UIGalleryParams>
 export type UIPageType = FC<UIPageParams>
 
 // definitions for component params
-interface UIParams {
+export interface UIParams {
     additionalClasses?: string
 }
 
@@ -18,17 +18,16 @@ interface UIButtonParams extends UIParams {
     children?: string
 }
 
-interface UIPageParams extends UIParams { children: ReactNode }
-
 interface UICardParams extends UIParams {
-    children: ReactNode
-    width?: number
+    children?: ReactNode
 }
 
 interface UIGalleryParams extends UIParams {
     children: ReactNode
     columns: number
 }
+
+interface UIPageParams extends UIParams { children: ReactNode }
 
 // data models
 
