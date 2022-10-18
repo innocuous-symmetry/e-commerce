@@ -15,6 +15,10 @@ export default function ProductPage() {
         .then(res => setProductData(res));
     }, [])
 
+    useEffect(() => {
+        console.log(productData);
+    }, [productData]);
+
     if (!productData) return <h1>Product not found.</h1>
 
     return (

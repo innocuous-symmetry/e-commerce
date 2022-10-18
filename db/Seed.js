@@ -97,15 +97,13 @@ async function main() {
         createProductsCarts, createProductsOrders
     ];
 
-    const categoryInsert = readCSV('./util/data/categories.csv', 'category');
-    const regionInsert = readCSV('./util/data/regions.csv', 'region');
-    const productInsert = readCSV('./util/data/products.csv', 'product');
+    // const categoryInsert = readCSV('./util/data/categories.csv', 'category');
+    // const regionInsert = readCSV('./util/data/regions.csv', 'region');
+    // const productInsert = readCSV('./util/data/products.csv', 'product');
 
-    const allInsertions = [
-        categoryInsert, regionInsert, productInsert
-    ]
-
-    let status;
+    // const allInsertions = [
+    //     categoryInsert, regionInsert, productInsert
+    // ]
 
     try {
         await client.query("DROP SCHEMA public CASCADE; CREATE SCHEMA public");
@@ -114,23 +112,18 @@ async function main() {
             await client.query(q);
         }
 
-        for (let section of allInsertions) {
-            for (let s of section) {
-                await client.query(s);
-            }
-        }
+        // for (let section of allInsertions) {
+        //     for (let s of section) {
+        //         await client.query(s);
+        //     }
+        // }
 
         await client.end();
-        status = "Database initialization successful.";
     } catch(e) {
-        status = e;
-    } finally {
-        if (status !== "Database initialization successful.") {
-            throw new Error(status);
-        }
+        throw new Error(e);
     }
 
-    console.log(status);
+    console.log("Database initialization successful");
 }
 
 main();
