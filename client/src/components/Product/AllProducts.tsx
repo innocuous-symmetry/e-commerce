@@ -9,7 +9,7 @@ import ProductCard from "./ProductCard";
 
 export default function AllProducts() {
     const [productData, setProductData] = useState<ProductModel[]>();
-    const [view, setView] = useState<JSX.Element>(<h1>Loading...</h1>);
+    const [view, setView] = useState<JSX.Element>(<Page additionalClasses="products-page"><h1>Loading...</h1></Page>);
 
     useEffect(() => {
         getAllProducts()
@@ -23,10 +23,10 @@ export default function AllProducts() {
 
     useEffect(() => {
         setView(
-            <Page>
+            <Page additionalClasses="products-page">
                 <h1>Product Catalog</h1>
                 
-                <Card additionalClasses="all-products-filter">
+                <Card additionalClasses="all-products-filter med-short-len">
                     <div>
                         <p>Filter results by:</p>
                         <select>

@@ -1,3 +1,61 @@
+@import "../helpers/variables";
+@import "../helpers/placeholders";
+
 .ui-card-component {
-    
+    background-color: gray;
+    display: block;
+    height: auto;
+    width: auto;
+    border-radius: 18px;
+    padding: 1rem;
+    margin: 2rem;
+
+    @extend %background-colors;
+
+    &.long {
+        width: 75vw;
+    }
+
+    &.medheight {
+        height: 50vh;
+    }
+
+    &.medlen {
+        width: 50vw;
+    }
+
+    &.medium {
+        height: 50vh;
+        width: 50vw;
+    }
+
+    &.med-short-len {
+        width: 30vw;
+    }
+
+    &.med-short-h {
+        height: 30vh;
+    }
+
+    &.short {
+        height: 20vh;
+    }
+
+    &.xshort {
+        height: 10vh;
+    }
+
+    &.skinny {
+        width: 20vw;
+    }
+
+    &.center {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &.column {
+        flex-flow: column nowrap;
+    }
 }

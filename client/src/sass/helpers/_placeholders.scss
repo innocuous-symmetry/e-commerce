@@ -1,0 +1,64 @@
+%background-colors {
+    &.darkred {
+        background-color: $darkred;
+    }
+
+    &.coffee {
+        background-color: $coffee;
+    }
+
+    &.nutmeg {
+        background-color: $nutmeg;
+        color: black;
+    }
+
+    &.thyme {
+        background-color: $thyme;
+        color: black;
+    }
+
+    &.papyrus {
+        background-color: $papyrus;
+        color: black;
+    }
+
+    &.lavender {
+        background-color: $lavender;
+        color: black;
+    }
+
+    &.turmeric {
+        background-color: $turmeric;
+        color: black;
+    }
+}
+
+%text-colors {
+    &.darkred {
+        color: $darkred;
+    }
+
+    &.coffee {
+        color: $coffee;
+    }
+
+    &.nutmeg {
+        color: $nutmeg;
+    }
+
+    &.thyme {
+        color: $thyme;
+    }
+
+    &.papyrus {
+        color: $papyrus;
+    }
+
+    &.lavender {
+        color: $lavender;
+    }
+
+    &.turmeric {
+        color: $turmeric;
+    }
+}

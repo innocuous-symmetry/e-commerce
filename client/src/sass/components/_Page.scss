@@ -1,5 +1,51 @@
+@import "../helpers/variables";
+@import "../helpers/placeholders";
+
 .ui-page-component {
-    &.homepage {
-      background-color: purple;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  background-color: $darkred;
+
+  @extend %background-colors;
+
+  &.homepage {
+    height: 100vh;
+    background-color: $nutmeg;
+    .welcome-section {
+      h1 {
+        font-size: 1.8rem;
+      }
     }
+
+    .button-row {
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: center;
+      justify-content: center;
+      .ui-button-component {
+        margin: 0 1rem;
+      }
+    }
+  }
+
+  &.products-page {
+    background-color: $thyme;
+    .all-products-filter {
+      background-color: $coffee;
+    }
+
+    .product-card-list {
+      background-color: inherit;
+      .product-card {
+        background-color: $papyrus;
+        color: $coffee;
+        width: 30%;
+        margin: 1rem;
+        padding: 1rem 0;
+
+        p { padding: 0 1rem; }
+      }
+    }
+  }
 }

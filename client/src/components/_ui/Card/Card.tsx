@@ -1,8 +1,8 @@
 import { UICardType } from "../../../util/types"
 
-const Card: UICardType = ({ children, additionalClasses = "", width = 45 }) => {
+const Card: UICardType = ({ children = <></>, additionalClasses = "" }) => {
     return (
-        <section className={`ui-card-component ${additionalClasses} width-${width}`}>
+        <section className={`ui-card-component ${additionalClasses}`}>
             { children }
         </section>
     )
